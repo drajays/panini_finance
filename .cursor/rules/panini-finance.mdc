@@ -1,0 +1,28 @@
+---
+description: Core Panini Finance conventions — glassbox-first CFA Level II content
+alwaysApply: true
+---
+
+# Panini Finance Core
+
+## Glassbox mandate
+
+**All problems will be solved as glassbox.**
+
+Every problem (notes examples, Glassbox Math tab, Practice MCQ solutions) must expose:
+1. First principle / accounting identity
+2. Numbered derivation steps with formulas
+3. Statement flow (what hits NI, OCI, assets, equity, cash)
+4. IFRS vs US GAAP when relevant
+5. Final answer + quick sanity check
+
+## Repo map
+
+- `src/data/curriculum.js` — topics / LM status
+- `src/data/lm##_*.js` — module content
+- `src/App.jsx` — `MODULE_CONTENT` registry + UI
+- `noupload/` — local only; never commit (see `.gitignore`)
+
+## When adding an LM
+
+Follow `.cursor/skills/add-cfa-module/SKILL.md` and `.cursor/skills/glassbox-problems/SKILL.md`.

@@ -1,0 +1,34 @@
+---
+description: CFA Level II learning-module data shape and glassbox/item-set conventions
+globs: src/data/**/*.js
+alwaysApply: false
+---
+
+# CFA Module Data Files
+
+## Exports
+
+```js
+export const LM## = { id, topic, topicName, title, subtitle, estimatedTime, weight,
+  learningOutcomes, keyTerms, sections, formulaSheet }
+export const LM##_ITEM_SETS = [ /* vignette + 4 MCQs */ ]
+export const LM##_GLASSBOX = [ /* required for every new module */ ]
+```
+
+## Glassbox entry shape
+
+```js
+{ id, title, topic, question, answer, principle, steps: [{ text, formula }] }
+```
+
+- `principle` = first-principles sentence
+- `steps` = transparent math; formulas are plain text for `.formula-box`
+- Verify arithmetic before shipping
+
+## Item-set shape
+
+```js
+{ id, title, vignette, questions: [{ id, question, options[4], answer /*0-3*/, solution, lo }] }
+```
+
+Solutions must be glassbox-style (steps + bold final answer), not one-liners.
