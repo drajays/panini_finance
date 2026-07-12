@@ -25,6 +25,14 @@ npm run build
 npm run preview
 ```
 
+### GitHub Pages
+
+Live site: [https://drajays.github.io/panini_finance/](https://drajays.github.io/panini_finance/)
+
+Deploy is automatic on push to `main` via `.github/workflows/deploy-pages.yml`.
+
+In the repo: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
+
 ## App architecture
 
 ```
