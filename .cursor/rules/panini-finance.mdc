@@ -1,5 +1,5 @@
 ---
-description: Core Panini Finance conventions — glassbox-first CFA Level II content
+description: Core Panini Finance conventions — dual-level CFA + glassbox-first content
 alwaysApply: true
 ---
 
@@ -9,20 +9,19 @@ alwaysApply: true
 
 **All problems will be solved as glassbox.**
 
-Every problem (notes examples, Glassbox Math tab, Practice MCQ solutions) must expose:
-1. First principle / accounting identity
+Every problem (L1 practice explanations, L2 Glassbox Math, L2 MCQ solutions) must expose:
+1. First principle / accounting or finance identity
 2. Numbered derivation steps with formulas
-3. Statement flow (what hits NI, OCI, assets, equity, cash)
+3. Statement/market flow when relevant
 4. IFRS vs US GAAP when relevant
 5. Final answer + quick sanity check
 
-## Repo map
+## Dual level
 
-- `src/data/curriculum.js` — topics / LM status
-- `src/data/lm##_*.js` — module content
-- `src/App.jsx` — `MODULE_CONTENT` registry + UI
-- `noupload/` — local only; never commit (see `.gitignore`)
+- `l1` → `src/level1/` (93 modules, practice, formula deck) — CSS under `.level1-root`
+- `l2` → deep modules in `src/data/lm##_*.js` + `MODULE_CONTENT` in `App.jsx`
+- `noupload/` is local only — never commit
 
-## When adding an LM
+## When adding an L2 LM
 
 Follow `.cursor/skills/add-cfa-module/SKILL.md` and `.cursor/skills/glassbox-problems/SKILL.md`.

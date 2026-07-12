@@ -1,14 +1,19 @@
-# Panini Finance — CFA Level II Deep-Dive App
+# Panini Finance — CFA Level I + II
 
-A focused web app for in-depth CFA Level II 2026 preparation. Current build focus:
-**Financial Statement Analysis** (Topic 3), starting with **LM 10 — Intercorporate Investments**.
-**LM 21 — Discounted Dividend Valuation (DDM)** remains available as the original template module.
+A focused web app for CFA 2026 preparation:
+
+- **Level I** — 93-module curriculum dashboard, practice room, formula deck (from `noupload/cfa1`, adapted)
+- **Level II** — deep-dive modules with Notes / Formula Sheet / Glassbox Math / Item sets  
+  Current L2 focus: **FSA LM 10 — Intercorporate Investments** (+ **LM 21 DDM** template)
+
+Switch tracks from either sidebar. Preference is saved in `localStorage`.
 
 ## Stack
 
 - **React 19** + **Vite 8** — single-page web app
-- Pure CSS with a dark, study-friendly theme (no UI framework)
-- All content is data-driven: `src/data/curriculum.js` plus per-module files
+- `lucide-react` icons (Level I UI)
+- Pure CSS — L2 dark theme + scoped L1 light theme (`.level1-root`)
+- Content is data-driven: `src/data/*` (L2) and `src/level1/data.js` (L1)
 
 ## Run
 
@@ -43,13 +48,15 @@ Rebuild `docs/` after content changes: `npm run build && rm -rf docs && cp -R di
 
 ```
 src/
-  main.jsx                  – React entry
-  App.jsx                   – Root component, layout, view switching
-  index.css / App.css       – Styles (dark theme)
+  App.jsx                   – Root shell: Level I ↔ Level II switch
+  level1/
+    Level1App.jsx           – L1 dashboard / curriculum / practice / formulas
+    data.js                 – 10 topics, 93 modules, formulas, practice Qs
+    styles.css              – Scoped under .level1-root
   data/
-    curriculum.js           – All 10 topics, 45 LMs metadata, exam info
-    lm10_intercorporate.js  – LM 10 content (notes, formulas, 3 item sets)
-    lm21_ddm.js             – LM 21 content (notes, formulas, 3 item sets)
+    curriculum.js           – L2 topics / 45 LMs metadata
+    lm10_intercorporate.js  – L2 LM 10
+    lm21_ddm.js             – L2 LM 21
 ```
 
 ### Component map (in `App.jsx`)

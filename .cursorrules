@@ -1,6 +1,7 @@
-# Panini Finance — CFA Level II App
+# Panini Finance — CFA Level I + II App
 
-You are building and extending Panini Finance, a React + Vite study app for CFA Level II 2026.
+You are building and extending Panini Finance, a React + Vite study app covering
+**CFA Level I (2026)** and **CFA Level II (2026)**.
 
 ## Non-negotiable: Glassbox for every problem
 
@@ -9,29 +10,36 @@ You are building and extending Panini Finance, a React + Vite study app for CFA 
 Every quantitative or conceptual problem must:
 1. State the **first principle / identity** before substituting numbers
 2. Show **transparent step-by-step math** (no skipped algebra)
-3. Track how amounts **flow through the statements** (BS / IS / CF / equity)
+3. Track how amounts **flow through the statements** (BS / IS / CF / equity) when relevant
 4. Call out **IFRS vs US GAAP** when standards diverge
 5. End with a clear **final answer** and a short sanity check
 
-Never dump a bare answer. Never hide intermediate quantities (excess amort, unrealized profit, NCI share, recoverable amount, etc.).
+Never dump a bare answer. Never hide intermediate quantities.
 
-## Module architecture
+## Dual-level architecture
+
+- Level switch persisted in `localStorage` key `panini-level` (`l1` | `l2`)
+- **Level I:** `src/level1/` — 93-module curriculum dashboard, practice room, formula deck
+  - Styles scoped under `.level1-root` (do not leak into L2)
+- **Level II:** `src/App.jsx` + `src/data/` — deep-dive modules with Notes / Formulas / Glassbox / Item sets
+- Source reference materials stay in `noupload/` (gitignored) — never commit them
+
+## Level II module architecture
 
 - Curriculum metadata: `src/data/curriculum.js`
 - Each LM: `src/data/lm##_*.js` exporting `{ LM##, LM##_ITEM_SETS, LM##_GLASSBOX? }`
 - Wire new modules in `App.jsx` → `MODULE_CONTENT`
-- Tabs per module: Notes → Formula Sheet → Glassbox Math → Practice MCQs
+- Tabs: Notes → Formula Sheet → Glassbox Math → Practice MCQs
 
 ## Adding content
 
-- Match existing LM 10 / LM 21 shape exactly
-- Glassbox problems: `{ id, title, topic, question, answer, principle, steps: [{ text, formula }] }`
-- Item sets: vignette + 4 MCQs with verified numbers and step solutions
-- Mark curriculum status: `available` | `coming` | `locked`
+- L2: match LM 10 / LM 21 shape; always include `LM##_GLASSBOX`
+- L1: extend `src/level1/data.js` (topics/modules/formulas/questions); practice explanations must be glassbox
+- Mark L2 curriculum status: `available` | `coming` | `locked`
 - Do not commit `noupload/`, `node_modules/`, `dist/`, or secrets
 
 ## Style
 
 - Concise study-notes prose; bold sparingly
-- Plain-text formulas (not LaTeX) for the UI formula boxes
-- Dark theme already defined — extend `src/index.css` only when needed
+- Plain-text formulas (not LaTeX) for UI formula boxes
+- Keep L1 light theme and L2 dark theme isolated

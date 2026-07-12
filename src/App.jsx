@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TOPICS, EXAM_META } from './data/curriculum.js'
 import { LM10, LM10_ITEM_SETS, LM10_GLASSBOX } from './data/lm10_intercorporate.js'
 import { LM21, LM21_ITEM_SETS } from './data/lm21_ddm.js'
+import Level1App from './level1/Level1App.jsx'
 import './App.css'
+
+const LEVEL_KEY = 'panini-level'
 
 /* Registry of fully built learning modules */
 const MODULE_CONTENT = {
@@ -42,7 +45,7 @@ function renderInline(text) {
 }
 
 /* ----------------- Sidebar ----------------- */
-function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic }) {
+function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic, onSwitchToL1 }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -51,6 +54,14 @@ function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic }) 
           <div>Panini Finance</div>
         </div>
         <div className="brand-sub">CFA Level II · 2026 Curriculum</div>
+        <button
+          type="button"
+          className="btn"
+          onClick={onSwitchToL1}
+          style={{ marginTop: 12, width: '100%', fontSize: 12 }}
+        >
+          ← Switch to Level I
+        </button>
       </div>
 
       <div className="sidebar-section">
@@ -104,7 +115,7 @@ function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic }) 
 }
 
 /* ----------------- Welcome / Home ----------------- */
-function Welcome({ onOpenLM10, onOpenLM21 }) {
+function Welcome({ onOpenLM10, onOpenLM21, onSwitchToL1 }) {
   return (
     <div className="welcome">
       <div className="welcome-hero">
@@ -112,7 +123,10 @@ function Welcome({ onOpenLM10, onOpenLM21 }) {
         <p>
           Your structured, deep-dive companion to the CFA Level II 2026 curriculum.
           Current focus: <strong>Financial Statement Analysis</strong> — starting with
-          Intercorporate Investments.
+          Intercorporate Investments. Need foundations?{' '}
+          <button type="button" className="btn" onClick={onSwitchToL1} style={{ display: 'inline', padding: '2px 8px', fontSize: 13 }}>
+            Open CFA Level I →
+          </button>
         </p>
         <div className="exam-stats">
           <div className="exam-stat">
@@ -560,8 +574,15 @@ function ModuleDetail({ mod, onBack }) {
 
 /* ----------------- App Root ----------------- */
 export default function App() {
+  const [level, setLevel] = useState(() => {
+    try { return localStorage.getItem(LEVEL_KEY) || 'l2' } catch { return 'l2' }
+  })
   const [activeModule, setActiveModule] = useState(null)
   const [expandedTopics, setExpandedTopics] = useState(new Set([3])) // FSA expanded by default
+
+  useEffect(() => {
+    try { localStorage.setItem(LEVEL_KEY, level) } catch { /* ignore */ }
+  }, [level])
 
   function toggleTopic(id) {
     const next = new Set(expandedTopics)
@@ -578,6 +599,10 @@ export default function App() {
     setActiveModule({ id: 21, title: LM21.title, topicId: 5, topicName: 'Equity Valuation' })
   }
 
+  if (level === 'l1') {
+    return <Level1App onSwitchToL2={() => setLevel('l2')} />
+  }
+
   return (
     <div className="app">
       <Sidebar
@@ -585,12 +610,13 @@ export default function App() {
         onSelectModule={setActiveModule}
         expandedTopics={expandedTopics}
         toggleTopic={toggleTopic}
+        onSwitchToL1={() => setLevel('l1')}
       />
       <main className="main">
         {activeModule ? (
           <ModuleDetail mod={activeModule} onBack={() => setActiveModule(null)} />
         ) : (
-          <Welcome onOpenLM10={openLM10} onOpenLM21={openLM21} />
+          <Welcome onOpenLM10={openLM10} onOpenLM21={openLM21} onSwitchToL1={() => setLevel('l1')} />
         )}
       </main>
     </div>
