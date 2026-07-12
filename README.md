@@ -29,9 +29,15 @@ npm run preview
 
 Live site: [https://drajays.github.io/panini_finance/](https://drajays.github.io/panini_finance/)
 
-Deploy is automatic on push to `main` via `.github/workflows/deploy-pages.yml`.
+**Required (one-time):** repo **Settings → Pages → Build and deployment**
 
-In the repo: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
+Pick either:
+1. **Source = GitHub Actions** (preferred — uses `.github/workflows/deploy-pages.yml`), or
+2. **Source = Deploy from a branch** → Branch `main` → Folder `/docs`
+
+Until you switch off “root of main”, the site serves uncompiled Vite source and stays blank.
+
+Rebuild `docs/` after content changes: `npm run build && rm -rf docs && cp -R dist docs && touch docs/.nojekyll`
 
 ## App architecture
 
