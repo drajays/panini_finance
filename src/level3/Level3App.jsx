@@ -45,9 +45,20 @@ const NAV_ITEMS = [
   { id: "formulas", label: "Formula deck", icon: Calculator },
 ];
 
-const STORAGE_KEY = "panini-l1-progress-v1";
-const TARGET_KEY = "panini-l1-target-v1";
-const ACTIVITY_KEY = "panini-l1-activity-v1";
+const TOTAL_MODULES = 42;
+
+const STORAGE_KEY = "panini-l3-progress-v1";
+const TARGET_KEY = "panini-l3-target-v1";
+const ACTIVITY_KEY = "panini-l3-activity-v1";
+
+const FORMULA_GROUP_BY_TOPIC = {
+  "asset-allocation": "asset",
+  "portfolio-construction": "portfolio construction",
+  "performance-measurement": "performance",
+  "derivatives-risk": "derivatives",
+  "pathway-pm": "portfolio construction",
+  "pathway-pmk": "private markets",
+};
 
 function usePersistentState(key, initialValue) {
   const [value, setValue] = useState(() => {
@@ -81,7 +92,7 @@ function daysUntil(dateString) {
   return Math.max(0, Math.ceil((target - today) / 86400000));
 }
 
-function ProgressRing({ value, size = 126, stroke = 10, color = "#ec7048", label = true }) {
+function ProgressRing({ value, size = 126, stroke = 10, color = "#2c7890", label = true }) {
   const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (Math.min(100, value) / 100) * circumference;
@@ -120,7 +131,7 @@ function TopicMark({ topic, size = "md" }) {
   );
 }
 
-function Sidebar({ active, setActive, open, setOpen, completedCount, onSwitchToL2, onSwitchToL3 }) {
+function Sidebar({ active, setActive, open, setOpen, completedCount, onSwitchToL1, onSwitchToL2 }) {
   return (
     <>
       {open && <button className="mobile-scrim" onClick={() => setOpen(false)} aria-label="Close menu" />}
@@ -135,15 +146,15 @@ function Sidebar({ active, setActive, open, setOpen, completedCount, onSwitchToL
 
         <div className="program-chip" role="button" tabIndex={0} onClick={onSwitchToL2} onKeyDown={(e) => e.key === "Enter" && onSwitchToL2?.()} title="Switch to CFA Level II">
           <span className="program-icon"><GraduationCap size={18} /></span>
-          <span><small>Study track</small><strong>CFA Level I · 2026</strong></span>
+          <span><small>Study track</small><strong>CFA Level III · 2026</strong></span>
           <ChevronDown size={16} />
         </div>
         <div style={{ display: "flex", gap: 6, margin: "0 4px 18px" }}>
+          <button className="ghost-button level-switch" onClick={onSwitchToL1} style={{ flex: 1, justifyContent: "center" }}>
+            ← Level I
+          </button>
           <button className="ghost-button level-switch" onClick={onSwitchToL2} style={{ flex: 1, justifyContent: "center" }}>
             Level II →
-          </button>
-          <button className="ghost-button level-switch" onClick={onSwitchToL3} style={{ flex: 1, justifyContent: "center" }}>
-            Level III →
           </button>
         </div>
 
@@ -159,7 +170,7 @@ function Sidebar({ active, setActive, open, setOpen, completedCount, onSwitchToL
               >
                 <Icon size={19} strokeWidth={1.9} />
                 <span>{item.label}</span>
-                {item.id === "curriculum" && <small>{completedCount}/93</small>}
+                {item.id === "curriculum" && <small>{completedCount}/{TOTAL_MODULES}</small>}
               </button>
             );
           })}
@@ -173,7 +184,7 @@ function Sidebar({ active, setActive, open, setOpen, completedCount, onSwitchToL
         </div>
         <div className="sidebar-footer">
           <div className="avatar">PF</div>
-          <span><strong>Panini candidate</strong><small>Level I track</small></span>
+          <span><strong>Panini candidate</strong><small>Level III track</small></span>
           <MoreHorizontal size={18} />
         </div>
       </aside>
@@ -203,7 +214,7 @@ function Topbar({ onMenu, query, setQuery, setActive, setSelectedModule }) {
         <Search size={19} />
         <input
           aria-label="Search curriculum"
-          placeholder="Search 93 modules, topics, or concepts…"
+          placeholder={`Search ${TOTAL_MODULES} modules, topics, or concepts…`}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setFocused(true)}
@@ -219,7 +230,7 @@ function Topbar({ onMenu, query, setQuery, setActive, setSelectedModule }) {
                 <span><strong>{module.title}</strong><small>LM {module.number} · {module.topicName}</small></span>
                 <ArrowRight size={16} />
               </button>
-            )) : <p className="empty-search">No matching modules. Try “duration” or “ethics”.</p>}
+            )) : <p className="empty-search">No matching modules. Try “duration” or “pathway”.</p>}
           </div>
         )}
       </div>
@@ -233,7 +244,7 @@ function Topbar({ onMenu, query, setQuery, setActive, setSelectedModule }) {
 
 function Dashboard({ completed, toggleComplete, targetDate, setTargetDate, openModule, goTo }) {
   const completedCount = completed.length;
-  const progress = (completedCount / 93) * 100;
+  const progress = (completedCount / TOTAL_MODULES) * 100;
   const incomplete = allModules.filter((m) => !completed.includes(m.id));
   const focusModules = incomplete.slice(0, 3);
   const minutesDone = allModules.filter((m) => completed.includes(m.id)).reduce((sum, m) => sum + m.minutes, 0);
@@ -250,15 +261,15 @@ function Dashboard({ completed, toggleComplete, targetDate, setTargetDate, openM
   return (
     <div className="page dashboard-page">
       <div className="welcome-line">
-        <div><p>{longDate}</p><h1>{greeting}.</h1><span>Small, focused sessions. Compounding results.</span></div>
+        <div><p>{longDate}</p><h1>{greeting}.</h1><span>Common core first, then your chosen pathway.</span></div>
         <button className="ghost-button" onClick={() => goTo("curriculum")}><Library size={17} /> Browse curriculum</button>
       </div>
 
       <section className="hero-card">
         <div className="hero-copy">
-          <span className="eyebrow light"><Sparkles size={15} /> YOUR LEVEL I JOURNEY</span>
-          <h2>Build mastery,<br /><em>one module at a time.</em></h2>
-          <p>You’ve completed <strong>{completedCount} of 93</strong> learning modules. Keep your next action simple and your momentum visible.</p>
+          <span className="eyebrow light"><Sparkles size={15} /> YOUR LEVEL III JOURNEY</span>
+          <h2>From analyst<br /><em>to portfolio manager.</em></h2>
+          <p>You’ve completed <strong>{completedCount} of {TOTAL_MODULES}</strong> learning modules across the common core and all three elective pathways. Keep your next action simple and your momentum visible.</p>
           <button className="primary light-button" onClick={() => focusModules[0] && openModule(focusModules[0])}>
             <Play size={16} fill="currentColor" /> {focusModules.length ? "Continue learning" : "Review curriculum"}
           </button>
@@ -275,7 +286,7 @@ function Dashboard({ completed, toggleComplete, targetDate, setTargetDate, openM
       </section>
 
       <div className="stat-grid">
-        <article className="stat-card coral"><span><CheckCircle2 size={20} /></span><div><small>Modules covered</small><strong>{completedCount}<em>/ 93</em></strong><p>{93 - completedCount} left in your track</p></div></article>
+        <article className="stat-card coral"><span><CheckCircle2 size={20} /></span><div><small>Modules covered</small><strong>{completedCount}<em>/ {TOTAL_MODULES}</em></strong><p>{TOTAL_MODULES - completedCount} left in your track</p></div></article>
         <article className="stat-card teal"><span><Clock3 size={20} /></span><div><small>Study time logged</small><strong>{Math.floor(minutesDone / 60)}<em>h {minutesDone % 60}m</em></strong><p>Based on completed modules</p></div></article>
         <article className="stat-card amber"><span><Flame size={20} /></span><div><small>Current streak</small><strong>{completedCount ? Math.min(12, Math.max(1, completedCount % 13)) : 0}<em> days</em></strong><p>Return tomorrow to extend it</p></div></article>
         <article className="stat-card violet"><span><Trophy size={20} /></span><div><small>Curriculum coverage</small><strong>{Math.round(progress)}<em>%</em></strong><p>{topicProgress.filter((t) => t.pct === 100).length} topics completed</p></div></article>
@@ -324,8 +335,8 @@ function Dashboard({ completed, toggleComplete, targetDate, setTargetDate, openM
 
       <section className="quote-strip">
         <div className="quote-mark">“</div>
-        <p>The most reliable edge is a process you can repeat when motivation is low.</p>
-        <span>STUDY PRINCIPLE · CONSISTENCY</span>
+        <p>Level III rewards judgment: knowing which tool fits the client, not just how the tool works.</p>
+        <span>STUDY PRINCIPLE · APPLICATION OVER RECALL</span>
       </section>
     </div>
   );
@@ -353,8 +364,8 @@ function Curriculum({ completed, toggleComplete, selectedModule, setSelectedModu
   return (
     <div className="page curriculum-page">
       <div className="page-title-row">
-        <div><span className="eyebrow">2026 CURRICULUM</span><h1>Learning library</h1><p>10 topics · 93 learning modules · one clear path</p></div>
-        <div className="title-progress"><ProgressRing value={(completed.length / 93) * 100} size={60} stroke={6} label={false} /><span><strong>{completed.length}/93</strong><small>modules covered</small></span></div>
+        <div><span className="eyebrow">2026 CURRICULUM</span><h1>Learning library</h1><p>5 core topics · 3 elective pathways · {TOTAL_MODULES} learning modules</p></div>
+        <div className="title-progress"><ProgressRing value={(completed.length / TOTAL_MODULES) * 100} size={60} stroke={6} label={false} /><span><strong>{completed.length}/{TOTAL_MODULES}</strong><small>modules covered</small></span></div>
       </div>
 
       <div className="curriculum-toolbar surface">
@@ -364,7 +375,7 @@ function Curriculum({ completed, toggleComplete, selectedModule, setSelectedModu
       </div>
 
       <div className="topic-pills" aria-label="Topic filters">
-        <button className={topicFilter === "all" ? "active" : ""} onClick={() => setTopicFilter("all")}>All <span>93</span></button>
+        <button className={topicFilter === "all" ? "active" : ""} onClick={() => setTopicFilter("all")}>All <span>{TOTAL_MODULES}</span></button>
         {topics.map((topic) => <button key={topic.id} className={topicFilter === topic.id ? "active" : ""} onClick={() => setTopicFilter(topic.id)}>{topic.shortName} <span>{topic.modules.length}</span></button>)}
       </div>
 
@@ -413,13 +424,10 @@ function Curriculum({ completed, toggleComplete, selectedModule, setSelectedModu
 
 function ModulePanel({ module, completed, onClose, toggleComplete, startTimer }) {
   const topic = topicLookup[module.topicId];
-  const relatedFormula = formulas.find((f) => {
-    const group = f.group.toLowerCase();
-    return (module.topicId === "fixed-income" && group.includes("fixed")) ||
-      (module.topicId === "fsa" && group === "fsa") || group.includes(topic.shortName.toLowerCase().split(" ")[0]);
-  });
+  const groupHint = FORMULA_GROUP_BY_TOPIC[module.topicId];
+  const relatedFormula = groupHint && formulas.find((f) => f.group.toLowerCase().includes(groupHint));
   const keywords = module.title
-    .replace(/\b(and|the|of|to|in|an|a|for|using|introduction)\b/gi, "")
+    .replace(/\b(and|the|of|to|in|an|a|for|using|introduction|overview)\b/gi, "")
     .split(/[,:–-]/)
     .join(" ")
     .split(/\s+/)
@@ -440,8 +448,8 @@ function ModulePanel({ module, completed, onClose, toggleComplete, startTimer })
         <span className="eyebrow">LEARNING CHECKS</span>
         <ul className="learning-list">
           <li><span>01</span><p>Explain the core relationships in <strong>{module.title.toLowerCase()}</strong> using precise exam language.</p></li>
-          <li><span>02</span><p>Apply the framework to a short investment scenario and identify the decision-relevant inputs.</p></li>
-          <li><span>03</span><p>Interpret the result, recognize common traps, and state its practical limitation.</p></li>
+          <li><span>02</span><p>Apply the framework to a constructed-response-style client or portfolio scenario.</p></li>
+          <li><span>03</span><p>Justify the recommendation, recognize common traps, and state its practical limitation.</p></li>
         </ul>
       </section>
       {relatedFormula && <section className="formula-peek"><span><Calculator size={16} /> RELATED FORMULA</span><strong>{relatedFormula.name}</strong><code>{relatedFormula.formula}</code></section>}
@@ -606,7 +614,7 @@ function FocusTimer({ module, onClose, onComplete }) {
   );
 }
 
-export default function Level1App({ onSwitchToL2, onSwitchToL3 }) {
+export default function Level3App({ onSwitchToL1, onSwitchToL2 }) {
   const [active, setActive] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [completed, setCompleted] = usePersistentState(STORAGE_KEY, []);
@@ -621,7 +629,7 @@ export default function Level1App({ onSwitchToL2, onSwitchToL3 }) {
     function shortcut(event) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        document.querySelector(".level1-root .global-search input")?.focus();
+        document.querySelector(".level3-root .global-search input")?.focus();
       }
     }
     window.addEventListener("keydown", shortcut);
@@ -647,16 +655,16 @@ export default function Level1App({ onSwitchToL2, onSwitchToL3 }) {
   }
 
   return (
-    <div className="level1-root">
+    <div className="level3-root">
       <div className="app-shell">
-        <Sidebar active={active} setActive={goTo} open={sidebarOpen} setOpen={setSidebarOpen} completedCount={completed.length} onSwitchToL2={onSwitchToL2} onSwitchToL3={onSwitchToL3} />
+        <Sidebar active={active} setActive={goTo} open={sidebarOpen} setOpen={setSidebarOpen} completedCount={completed.length} onSwitchToL1={onSwitchToL1} onSwitchToL2={onSwitchToL2} />
         <main className="main-shell">
           <Topbar onMenu={() => setSidebarOpen(true)} query={globalQuery} setQuery={setGlobalQuery} setActive={setActive} setSelectedModule={setSelectedModule} />
           {active === "dashboard" && <Dashboard completed={completed} toggleComplete={toggleComplete} targetDate={targetDate} setTargetDate={setTargetDate} openModule={openModule} goTo={goTo} />}
           {active === "curriculum" && <Curriculum completed={completed} toggleComplete={toggleComplete} selectedModule={selectedModule} setSelectedModule={setSelectedModule} initialTopic={initialTopic} startTimer={setTimerModule} />}
           {active === "practice" && <Practice completed={completed} />}
           {active === "formulas" && <FormulaDeck />}
-          <footer className="app-footer"><span>Panini Finance · CFA Level I</span><span>Aligned to the 2026 Level I topic outline · Not affiliated with CFA Institute</span></footer>
+          <footer className="app-footer"><span>Panini Finance · CFA Level III</span><span>Aligned to the 2026 Level III topic outline · Not affiliated with CFA Institute</span></footer>
         </main>
         <nav className="mobile-nav">
           {NAV_ITEMS.map((item) => { const Icon = item.icon; return <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => goTo(item.id)}><Icon size={20} /><span>{item.label === "Formula deck" ? "Formulas" : item.label}</span></button>; })}

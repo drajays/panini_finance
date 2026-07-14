@@ -3,6 +3,7 @@ import { TOPICS, EXAM_META } from './data/curriculum.js'
 import { LM10, LM10_ITEM_SETS, LM10_GLASSBOX } from './data/lm10_intercorporate.js'
 import { LM21, LM21_ITEM_SETS } from './data/lm21_ddm.js'
 import Level1App from './level1/Level1App.jsx'
+import Level3App from './level3/Level3App.jsx'
 import './App.css'
 
 const LEVEL_KEY = 'panini-level'
@@ -45,7 +46,7 @@ function renderInline(text) {
 }
 
 /* ----------------- Sidebar ----------------- */
-function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic, onSwitchToL1 }) {
+function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic, onSwitchToL1, onSwitchToL3 }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -54,14 +55,24 @@ function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic, on
           <div>Panini Finance</div>
         </div>
         <div className="brand-sub">CFA Level II · 2026 Curriculum</div>
-        <button
-          type="button"
-          className="btn"
-          onClick={onSwitchToL1}
-          style={{ marginTop: 12, width: '100%', fontSize: 12 }}
-        >
-          ← Switch to Level I
-        </button>
+        <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+          <button
+            type="button"
+            className="btn"
+            onClick={onSwitchToL1}
+            style={{ flex: 1, fontSize: 12 }}
+          >
+            ← Level I
+          </button>
+          <button
+            type="button"
+            className="btn"
+            onClick={onSwitchToL3}
+            style={{ flex: 1, fontSize: 12 }}
+          >
+            Level III →
+          </button>
+        </div>
       </div>
 
       <div className="sidebar-section">
@@ -115,7 +126,7 @@ function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic, on
 }
 
 /* ----------------- Welcome / Home ----------------- */
-function Welcome({ onOpenLM10, onOpenLM21, onSwitchToL1 }) {
+function Welcome({ onOpenLM10, onOpenLM21, onSwitchToL1, onSwitchToL3 }) {
   return (
     <div className="welcome">
       <div className="welcome-hero">
@@ -126,6 +137,10 @@ function Welcome({ onOpenLM10, onOpenLM21, onSwitchToL1 }) {
           Intercorporate Investments. Need foundations?{' '}
           <button type="button" className="btn" onClick={onSwitchToL1} style={{ display: 'inline', padding: '2px 8px', fontSize: 13 }}>
             Open CFA Level I →
+          </button>{' '}
+          Ready for portfolio management?{' '}
+          <button type="button" className="btn" onClick={onSwitchToL3} style={{ display: 'inline', padding: '2px 8px', fontSize: 13 }}>
+            Open CFA Level III →
           </button>
         </p>
         <div className="exam-stats">
@@ -600,7 +615,11 @@ export default function App() {
   }
 
   if (level === 'l1') {
-    return <Level1App onSwitchToL2={() => setLevel('l2')} />
+    return <Level1App onSwitchToL2={() => setLevel('l2')} onSwitchToL3={() => setLevel('l3')} />
+  }
+
+  if (level === 'l3') {
+    return <Level3App onSwitchToL1={() => setLevel('l1')} onSwitchToL2={() => setLevel('l2')} />
   }
 
   return (
@@ -611,12 +630,13 @@ export default function App() {
         expandedTopics={expandedTopics}
         toggleTopic={toggleTopic}
         onSwitchToL1={() => setLevel('l1')}
+        onSwitchToL3={() => setLevel('l3')}
       />
       <main className="main">
         {activeModule ? (
           <ModuleDetail mod={activeModule} onBack={() => setActiveModule(null)} />
         ) : (
-          <Welcome onOpenLM10={openLM10} onOpenLM21={openLM21} onSwitchToL1={() => setLevel('l1')} />
+          <Welcome onOpenLM10={openLM10} onOpenLM21={openLM21} onSwitchToL1={() => setLevel('l1')} onSwitchToL3={() => setLevel('l3')} />
         )}
       </main>
     </div>
