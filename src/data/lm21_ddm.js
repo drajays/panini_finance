@@ -1121,6 +1121,62 @@ This perfectly aligns with HDFC Bank's historical, un-diluted Book Value compoun
     },
 
     {
+      id: "prat-model-sgr-architecture-clusters",
+      title: "9N. The Mathematical Architecture of SGR and the PRAT Model (12-Equity Deconstruction)",
+      body: `To evaluate this specific basket of equities through a rigorous, first-principles framework, we must look beyond basic return metrics and calculate the **Sustainable Growth Rate (SGR)**. In the CFA Level 2 framework, SGR defines the maximum rate at which a company can grow its sales, earnings, and assets without having to issue new equity or increase its financial leverage.
+
+The engine behind SGR is the **PRAT Model**, which deconstructs growth into four deterministic variables using the DuPont identity.
+
+---
+
+### 1. The Core Equations & Glassbox Expansion
+Fundamentally, growth is a function of how much capital a business generates and how much of that capital it keeps:
+$SGR = ROE \\times b$
+Where $b$ represents the Retention Rate ($1 - \\text{Dividend Payout Ratio}$).
+
+By expanding ROE using the traditional DuPont formula, we break the "black box" of growth into the PRAT components:
+$SGR = \\left( \\frac{\\text{Net Income}}{\\text{Sales}} \\right) \\times \\left( \\frac{\\text{Net Income} - \\text{Dividends}}{\\text{Net Income}} \\right) \\times \\left( \\frac{\\text{Sales}}{\\text{Total Assets}} \\right) \\times \\left( \\frac{\\text{Total Assets}}{\\text{Total Equity}} \\right)$
+
+This simplifies cleanly into:
+$SGR = P \\times R \\times A \\times T$
+• **$P$ (Profit Margin $\\frac{\\text{Net Income}}{\\text{Sales}}$):** Operating efficiency and pricing power.
+• **$R$ (Retention Rate $\\frac{\\text{Net Income} - \\text{Dividends}}{\\text{Net Income}}$):** Dividend policy and capital allocation ($b$).
+• **$A$ (Asset Turnover $\\frac{\\text{Sales}}{\\text{Total Assets}}$):** Capital velocity and asset-light scale.
+• **$T$ (Financial Leverage $\\frac{\\text{Total Assets}}{\\text{Total Equity}}$):** The equity multiplier.
+
+---
+
+### 2. Deconstructing the 12 Equities via PRAT Clusters
+When calculating SGR for these specific companies, their mathematical business models dictate which variable in the PRAT equation acts as the primary growth engine and which acts as the limiting constraint.
+
+#### Cluster 1: The High-Retention Compounders (Financials)
+**Equities:** *HDFC Bank, Bajaj Finance, Kotak Mahindra Bank, Cholamandalam Investment & Finance, MAS Financial Services*
+For banking and NBFC models, capital is the raw material. To grow the loan book (Asset Growth), they must retain earnings to satisfy Tier-1 capital adequacy ratios.
+• **The PRAT Engine:** Their SGR is driven entirely by **$T$ (Leverage)** and **$R$ (Retention Rate)**.
+• **The First Principles Reality:** These companies historically pay very low dividends (high $R$) because every rupee paid out limits their ability to lever up by $7\\times$ to $9\\times$ (high $T$). If an NBFC like Bajaj Finance wants to grow at 25% but its internal SGR is only 18%, it will inevitably have to dilute shareholders by raising fresh equity. Kotak relies on a lower $T$ but makes up for it with pristine $P$ (Net Interest Margin) to drive its SGR.
+
+#### Cluster 2: The Asset-Light Cash Distributors (IT & Pharma)
+**Equities:** *TCS, LTIMindtree, Abbott India, Divi's Laboratories*
+These companies generate immense free cash flow but require very little hard capital to fund incremental revenue growth.
+• **The PRAT Engine:** Their SGR is driven by exceptional **$P$ (Profit Margin)** and **$A$ (Asset Turnover)**.
+• **The Limiting Constraint:** The **$R$ (Retention Rate)** severely caps their nominal SGR. Because TCS and Abbott India operate asset-light models, retaining 100% of their earnings would simply result in dead cash sitting on the balance sheet, dragging down ROE. Therefore, they pay out massive dividends (low $R$), which mathematically results in a lower nominal SGR. Their true fundamental quality is found in the operational multiplier ($P \\times A$), not in their absolute SGR.
+
+#### Cluster 3: The Reinvesting Monopolies (Retail & Consumer)
+**Equities:** *Titan, Trent, Pidilite Industries*
+These are high-quality compounders that sit perfectly in the middle of the PRAT model. They generate high returns and have active, scalable avenues to reinvest that capital back into the business at similar marginal rates of return.
+• **The PRAT Engine:** **$A$ (Asset Turnover)** combined with a balanced **$R$ (Retention Rate)** and low **$T$ (Leverage)**.
+• **The First Principles Reality:** Trent and Titan expand aggressively by adding new store footprints (Zudio, Westside, Tanishq). They retain a significant portion of their earnings (moderate to high $R$) to fund this expansion without taking on dangerous debt (pristine low $T$). Their SGR accurately reflects their intrinsic ability to compound shareholder wealth purely through operational cash flow and rapid inventory turnover.
+
+---
+
+### 3. The SGR Glassbox Diagnostic
+When applying this on the exam or in practice, compare the mathematically derived SGR against the company's actual historical growth rate ($g_{\\text{actual}}$):
+• **If Actual Growth > SGR ($g_{\\text{actual}} > SGR$):** The company is growing faster than its internal cash generation allows. It is burning through its balance sheet and will soon be forced to borrow heavily (increasing $T$) or issue new equity (diluting shareholders). *Watch MAS Financial and Cholamandalam for this risk during aggressive credit boom cycles.*
+• **If Actual Growth < SGR ($g_{\\text{actual}} < SGR$):** The company is generating more cash than it can deploy into growth. It will either begin accumulating excess cash (which depresses future ROE) or it must increase dividends/buybacks (lowering $R$). *Watch TCS, Abbott India, and Pidilite in this category.*`,
+      formula: "SGR = P × R × A × T = Margin × Retention × Turnover × Leverage",
+    },
+
+    {
       id: "index",
       title: "10. Using DDM to Value an Equity Index",
       body: `You can apply the DDM to a broad index (e.g., the S&P 500). The implied growth rate of the index is the weighted average of constituent implied growths.
@@ -1151,6 +1207,7 @@ This perfectly aligns with HDFC Bank's historical, un-diluted Book Value compoun
     { name: "Multi-Stage Terminal P/E", formula: "TV_n = E_n × [Payout × (1 + g_L)] / (r − g_L)" },
     { name: "Three-Stage DDM (Stepwise)", formula: "V₀ = Σ [PV(D_t)] across phases + [D_n(1+g_L) / (r−g_L)] / (1+r)^n" },
     { name: "Three-Stage DDM (Embedded H)", formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [V_H at Year n] / (1+r)^n" },
+    { name: "PRAT Model (SGR Identity)", formula: "SGR = P × R × A × T = Margin × Retention × Turnover × Leverage" },
   ],
 };
 
