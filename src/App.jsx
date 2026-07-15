@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { TOPICS, EXAM_META } from './data/curriculum.js'
 import { LM10, LM10_ITEM_SETS, LM10_GLASSBOX } from './data/lm10_intercorporate.js'
+import { LM20, LM20_ITEM_SETS, LM20_GLASSBOX } from './data/lm20_equity_valuation_apps.js'
 import { LM21, LM21_ITEM_SETS } from './data/lm21_ddm.js'
 import Level1App from './level1/Level1App.jsx'
 import Level3App from './level3/Level3App.jsx'
@@ -11,6 +12,7 @@ const LEVEL_KEY = 'panini-level'
 /* Registry of fully built learning modules */
 const MODULE_CONTENT = {
   10: { module: LM10, itemSets: LM10_ITEM_SETS, glassbox: LM10_GLASSBOX },
+  20: { module: LM20, itemSets: LM20_ITEM_SETS, glassbox: LM20_GLASSBOX },
   21: { module: LM21, itemSets: LM21_ITEM_SETS },
 }
 
@@ -126,7 +128,7 @@ function Sidebar({ activeModule, onSelectModule, expandedTopics, toggleTopic, on
 }
 
 /* ----------------- Welcome / Home ----------------- */
-function Welcome({ onOpenLM10, onOpenLM21, onSwitchToL1, onSwitchToL3 }) {
+function Welcome({ onOpenLM10, onOpenLM20, onOpenLM21, onSwitchToL1, onSwitchToL3 }) {
   return (
     <div className="welcome">
       <div className="welcome-hero">
@@ -194,8 +196,11 @@ function Welcome({ onOpenLM10, onOpenLM21, onSwitchToL1, onSwitchToL3 }) {
           <button className="btn primary" onClick={onOpenLM10}>
             Open LM 10 — Intercorporate Investments →
           </button>
+          <button className="btn" onClick={onOpenLM20}>
+            LM 20 — Equity Valuation Apps →
+          </button>
           <button className="btn" onClick={onOpenLM21}>
-            LM 21 — DDM (template) →
+            LM 21 — DDM →
           </button>
         </div>
       </div>
@@ -204,8 +209,8 @@ function Welcome({ onOpenLM10, onOpenLM21, onSwitchToL1, onSwitchToL3 }) {
         <h2>🗺️ Roadmap</h2>
         <ul style={{ color: 'var(--text-dim)', paddingLeft: 22, lineHeight: 1.8 }}>
           <li><strong>Current:</strong> FSA — Intercorporate Investments first, then LM 11–15</li>
-          <li><strong>Also available:</strong> Equity LM 21 (DDM)</li>
-          <li><strong>Next waves:</strong> Remaining Equity (LM 20–25), Fixed Income (LM 26–30), then Quant / PM / Derivatives / Alts / Ethics / Corporate / Econ</li>
+          <li><strong>Also available:</strong> Equity LM 20 (Applications & Processes), LM 21 (DDM)</li>
+          <li><strong>Next waves:</strong> Remaining Equity (LM 22–25), Fixed Income (LM 26–30), then Quant / PM / Derivatives / Alts / Ethics / Corporate / Econ</li>
         </ul>
         <p style={{ color: 'var(--text-mute)', fontSize: 13, marginTop: 16 }}>
           Reference: <a href="https://300hours.com/cfa-level-2-study-order/" target="_blank" rel="noopener">300Hours 2026 curriculum order ↗</a>
@@ -610,6 +615,10 @@ export default function App() {
     setActiveModule({ id: 10, title: LM10.title, topicId: 3, topicName: 'Financial Statement Analysis' })
   }
 
+  function openLM20() {
+    setActiveModule({ id: 20, title: LM20.title, topicId: 5, topicName: 'Equity Valuation' })
+  }
+
   function openLM21() {
     setActiveModule({ id: 21, title: LM21.title, topicId: 5, topicName: 'Equity Valuation' })
   }
@@ -636,7 +645,7 @@ export default function App() {
         {activeModule ? (
           <ModuleDetail mod={activeModule} onBack={() => setActiveModule(null)} />
         ) : (
-          <Welcome onOpenLM10={openLM10} onOpenLM21={openLM21} onSwitchToL1={() => setLevel('l1')} onSwitchToL3={() => setLevel('l3')} />
+          <Welcome onOpenLM10={openLM10} onOpenLM20={openLM20} onOpenLM21={openLM21} onSwitchToL1={() => setLevel('l1')} onSwitchToL3={() => setLevel('l3')} />
         )}
       </main>
     </div>

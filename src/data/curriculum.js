@@ -1,5 +1,5 @@
 // CFA Level 2 (2026) – Full curriculum metadata
-// Active build: FSA LM 10 (Intercorporate) + Equity LM 21 (DDM template)
+// Active build: FSA LM 10 + Equity LM 20 (Valuation Apps) + LM 21 (DDM)
 // Source: CFA Institute 2026 curriculum, 300Hours, AnalystPrep, Soleadea
 
 export const TOPICS = [
@@ -69,8 +69,9 @@ export const TOPICS = [
     lms: "LM 20–25",
     description:
       "The deepest valuation topic at L2. DDM, FCFF/FE, residual income, market multiples, and private-company valuation.",
+    highlight: true,
     modules: [
-      { id: 20, title: "Equity Valuation: Applications and Processes", status: "coming" },
+      { id: 20, title: "Equity Valuation: Applications and Processes", status: "available" },
       { id: 21, title: "Discounted Dividend Valuation (DDM)", status: "available" },
       { id: 22, title: "Free Cash Flow Valuation (FCFF / FCFE)", status: "coming" },
       { id: 23, title: "Market-Based Valuation: P/E, P/B, EV/EBITDA, PEG", status: "coming" },
