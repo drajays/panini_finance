@@ -1286,8 +1286,97 @@ When applying this on the exam or in practice, compare the mathematically derive
       formula: "SGR = P × R × A × T = Margin × Retention × Turnover × Leverage",
     },
     {
+      id: "advanced-glassbox-vignettes-prat-dupont",
+      title: "29. Advanced Glassbox Vignettes: PRAT Growth & 5-Point DuPont Deconstruction",
+      body: `To apply a first-principles, glassbox approach to these financial frameworks, here are three advanced, CFA Level 2 style vignette problems. These calculations deconstruct the mathematical invariants governing the growth and returns of specific equities across our strategic clusters.
+
+---
+
+### Problem 1: The PRAT Growth Engine (Bajaj Finance)
+**Scenario:**
+You are analyzing **Bajaj Finance** to determine if its aggressive loan book expansion is mathematically sustainable without raising external equity. You have extracted the following trailing twelve-month (TTM) figures (in ₹ Crores):
+• **Total Revenue (Sales):** ₹40,000
+• **Net Income:** ₹10,000
+• **Dividends Paid:** ₹1,000
+• **Total Assets:** ₹250,000
+• **Total Equity:** ₹40,000
+
+**Task:**
+Calculate the individual components of the PRAT model and determine the Sustainable Growth Rate ($SGR$).
+
+#### Glassbox Calculation
+First, we isolate the four deterministic variables of the PRAT model:
+1. **Profit Margin ($P$):** $\\frac{10,000}{40,000} = \\mathbf{0.250}$ ($25.0\\%$)
+2. **Retention Rate ($R$):** $\\frac{10,000 - 1,000}{10,000} = \\mathbf{0.900}$ ($90.0\\%$)
+3. **Asset Turnover ($A$):** $\\frac{40,000}{250,000} = \\mathbf{0.160}$
+4. **Financial Leverage ($T$):** $\\frac{250,000}{40,000} = \\mathbf{6.250}$
+
+Now, compute the SGR:
+$SGR = P \\times R \\times A \\times T$
+$SGR = 0.250 \\times 0.900 \\times 0.160 \\times 6.250$
+$SGR = \\mathbf{0.225}$ (or **22.5%**)
+
+**Conclusion:** Bajaj Finance can compound its asset base at **22.5%** internally. If actual loan book growth exceeds this rate over a multi-year horizon, it triggers a mathematical necessity to dilute shareholders by raising fresh equity.
+
+---
+
+### Problem 2: 5-Point DuPont Deconstruction (TCS)
+**Scenario:**
+You are evaluating the quality of earnings for **TCS**. IT services franchises boast high ROEs, but you need to isolate the pure operating efficiency from the tax structure and debt drag.
+• **Sales:** ₹200,000
+• **EBIT (Operating Income):** ₹50,000
+• **EBT (Earnings Before Tax):** ₹49,000
+• **Net Income:** ₹37,000
+• **Total Assets:** ₹150,000
+• **Total Equity:** ₹100,000
+
+**Task:**
+Calculate the 5-point DuPont ROE, isolating the Tax Burden, Interest Burden, and pure EBIT Margin.
+
+#### Glassbox Calculation
+$ROE = \\left( \\frac{\\text{Net Income}}{\\text{EBT}} \\right) \\times \\left( \\frac{\\text{EBT}}{\\text{EBIT}} \\right) \\times \\left( \\frac{\\text{EBIT}}{\\text{Sales}} \\right) \\times \\left( \\frac{\\text{Sales}}{\\text{Total Assets}} \\right) \\times \\left( \\frac{\\text{Total Assets}}{\\text{Total Equity}} \\right)$
+
+1. **Tax Burden ($\\frac{\\text{Net Income}}{\\text{EBT}}$):** $\\frac{37,000}{49,000} = \\mathbf{0.755}$ *(The company retains 75.5% of pre-tax profits)*
+2. **Interest Burden ($\\frac{\\text{EBT}}{\\text{EBIT}}$):** $\\frac{49,000}{50,000} = \\mathbf{0.980}$ *(The company retains 98% of operating profits after interest, proving minimal debt drag)*
+3. **EBIT Margin ($\\frac{\\text{EBIT}}{\\text{Sales}}$):** $\\frac{50,000}{200,000} = \\mathbf{0.250}$ *(25.0% pure operating margin)*
+4. **Asset Turnover ($\\frac{\\text{Sales}}{\\text{Total Assets}}$):** $\\frac{200,000}{150,000} = \\mathbf{1.333}$
+5. **Equity Multiplier ($\\frac{\\text{Total Assets}}{\\text{Total Equity}}$):** $\\frac{150,000}{100,000} = \\mathbf{1.500}$
+
+$ROE = 0.755 \\times 0.980 \\times 0.250 \\times 1.333 \\times 1.500$
+$ROE = \\mathbf{0.369}$ (or **36.9%**)
+
+**Conclusion:** TCS generates a pristine **36.9% ROE**, driven largely by a 25% operating margin and high asset velocity ($1.333\\times$), with virtually zero interest penalty ($0.980$ interest burden).
+
+---
+
+### Problem 3: Solving for the Limiting Constraint (Titan)
+**Scenario:**
+**Titan's** management has set a strategic objective to achieve a **20% Sustainable Growth Rate ($SGR$)** for the upcoming fiscal year to fund new Tanishq and Zudio store expansions without taking on financial leverage or debt.
+You have modeled the following invariants for the upcoming year:
+• **Profit Margin ($P$):** 10.0% ($0.10$)
+• **Asset Turnover ($A$):** $1.5\\times$
+• **Financial Leverage ($T$):** $2.0\\times$
+
+**Task:**
+Mathematically determine the maximum Dividend Payout Ratio Titan can afford while still hitting its 20% growth target.
+
+#### Glassbox Calculation
+We must rearrange the PRAT equation to solve for the required Retention Rate ($R$):
+$SGR = P \\times R \\times A \\times T$
+$0.20 = 0.10 \\times R \\times 1.5 \\times 2.0$
+$0.20 = 0.30 \\times R$
+$R = \\frac{0.20}{0.30} = \\mathbf{0.6667}$ (or **66.67%**)
+
+If the required Retention Rate is 66.67%, the maximum Dividend Payout Ratio is the remainder:
+$\\text{Payout Ratio} = 1 - R$
+$\\text{Payout Ratio} = 1 - 0.6667 = \\mathbf{0.3333}$ (or **33.33%**)
+
+**Conclusion:** To fund a **20% internal growth rate** under its current operating and leverage constraints, Titan must cap its dividend payout at **33.33%** of Net Income (retaining the remaining 66.67% inside the business).`,
+      formula: "ROE = (NI/EBT) × (EBT/EBIT) × (EBIT/Sales) × (Sales/Assets) × (Assets/Equity)",
+    },
+    {
       id: "process",
-      title: "29. The Equity Valuation Process — Broad Steps",
+      title: "30. The Equity Valuation Process — Broad Steps",
       body: `CFA frames the process as a sequence:
 
 1. **Understand the business** — industry, strategy, financial statements, quality of earnings
@@ -1319,6 +1408,7 @@ Two-stage or three-stage models are appropriate when growth is expected to decli
     { name: "Three-Stage DDM (Embedded H)", formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [V_H at Year n] / (1+r)^n" },
     { name: "Sustainable Growth Rate", formula: "g = b × ROE = (1 − Payout) × ROE" },
     { name: "PRAT Model (SGR Identity)", formula: "SGR = P × R × A × T = Margin × Retention × Turnover × Leverage" },
+    { name: "5-Point DuPont ROE", formula: "ROE = (NI/EBT) × (EBT/EBIT) × (EBIT/Sales) × (Sales/Assets) × (Assets/Equity)" },
   ],
 };
 
