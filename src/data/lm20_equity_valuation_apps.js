@@ -1177,8 +1177,62 @@ By combining the explicit forecast with the H-Model, you perfectly map corporate
       formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [V_H at Year n] / (1+r)^n",
     },
     {
+      id: "sustainable-growth-rate-framework-matrix",
+      title: "27. The Sustainable Growth Rate Framework (g = b × ROE) & 10-Equity Sustainable Growth Matrix",
+      body: `The **Sustainable Growth Rate ($g$)** is a fundamental architectural pillar of equity valuation. It calculates the exact maximum rate at which a company can grow its earnings and revenues using its internal cash flow, without needing to issue new equity or alter its financial leverage ratio.
+
+The mathematical invariant here is that long-term compounding is strictly dictated by two factors: how efficiently the company generates profit on shareholder capital ($ROE$), and how much of that profit management decides to keep in the business ($b$).
+
+---
+
+### The Glassbox Mathematics
+$g = b \\times \\text{ROE}$
+Where:
+• **$\\text{ROE}$ (Return on Equity):** The percentage return a company generates on its book value ($\\frac{\\text{Net Income}}{\\text{Total Shareholders' Equity}}$).
+• **$b$ (Retention Ratio):** The percentage of Net Income kept within the firm. It is the mathematical inverse of the Dividend Payout Ratio ($b = 1 - \\text{Payout Ratio}$).
+
+---
+
+### Sustainable Growth Matrix Across 10 Representative Equities
+*(Note: The Return on Equity and Payout Ratios below are based on representative, normalized trailing performance data for these franchises).*
+
+| Company | Return on Equity (ROE) | Dividend Payout Ratio | Retention Ratio ($b$) | Sustainable Growth Rate ($g = b \\times ROE$) | Strategic Capital Archetype |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Titan** | 31.0% | 25.0% | 75.0% (0.75) | **23.25%** | **The Apex Compounder** |
+| **Bajaj Finance** | 21.0% | 15.0% | 85.0% (0.85) | **17.85%** | **High-Velocity Financial Engine** |
+| **LTI Mindtree** | 28.0% | 40.0% | 60.0% (0.60) | **16.80%** | **Balanced Reinvestment IT Franchise** |
+| **Pidilite Industries** | 23.9% | 35.0% | 65.0% (0.65) | **15.54%** | **Moated Specialty Chemical Compounder** |
+| **Max Healthcare** | 17.0% | 10.0% | 90.0% (0.90) | **15.30%** | **Capital-Intensive Hospital Expander** |
+| **HDFC Bank** | 15.5% | 20.0% | 80.0% (0.80) | **12.40%** | **Leveraged Banking Compounder** |
+| **Apollo Hospitals** | 15.0% | 20.0% | 80.0% (0.80) | **12.00%** | **Healthcare Infrastructure Retainer** |
+| **Divi's Laboratories** | 19.0% | 40.0% | 60.0% (0.60) | **11.40%** | **API & CDMO Reinvestor** |
+| **Abbott India** | 32.0% | 65.0% | 35.0% (0.35) | **11.20%** | **Asset-Light Pharma Cash Cow** |
+| **TCS** | 48.0% | 80.0% | 20.0% (0.20) | **9.60%** | **High-ROE Payout Paradox / Utility** |
+
+---
+
+### First Principles Deconstruction
+By running this mathematical proof across the portfolio, we can immediately identify the structural differences in how these companies create wealth:
+
+#### 1. The High-ROE Payout Paradox (TCS & Abbott India)
+**TCS** has an exceptional ROE of 48.0%. However, because it is an asset-light IT services firm, it cannot efficiently deploy tens of thousands of crores back into hard assets without destroying its marginal return on invested capital. Therefore, it distributes 80% of its earnings to shareholders:
+$g = 0.20 \\times 48.0\\% = \\mathbf{9.60\\%}$
+Its internal sustainable growth rate is capped at roughly 9.6%. If TCS wishes to grow faster than this organically, it must mathematically alter its capital structure (reduce dividends or take on debt).
+
+#### 2. The Apex Compounder (Titan)
+**Titan** is the quintessential compounding machine. Because of its asset-light franchisee model combined with strong working capital dynamics, it achieves software-like returns on capital (ROE of 31.0%), but unlike TCS, it is operating in a deeply underpenetrated, formalizing jewelry and lifestyle market. It chooses to retain 75% of its cash to fund massive inventory and store rollouts:
+$g = 0.75 \\times 31.0\\% = \\mathbf{23.25\\%}$
+This mathematical capacity to grow earnings internally at 23%+ without external dilution is exactly why the market awards Titan such a massive Present Value of Growth Opportunities (PVGO) multiple.
+
+#### 3. The Banking Engine (HDFC Bank)
+Banks operate on massive leverage by design, meaning their ROE is generally bound by strict regulatory capital limits and net interest margin physics. **HDFC Bank** maintains a highly consistent ROE of ~15.5%. To fund its expanding loan book, it must retain the vast majority of its earnings ($b = 0.80$):
+$g = 0.80 \\times 15.5\\% = \\mathbf{12.40\\%}$
+This perfectly aligns with HDFC Bank's historical, un-diluted Book Value compounding rate. If the bank attempts to push its loan book growth significantly past 12% to 14% over a sustained multi-year period, the mathematics dictate that its internal equity generation will fall short, forcing it to raise external capital via QIPs to maintain its Tier-1 capital adequacy ratios.`,
+      formula: "g = b × ROE = (1 − Payout) × ROE",
+    },
+    {
       id: "process",
-      title: "27. The Equity Valuation Process — Broad Steps",
+      title: "28. The Equity Valuation Process — Broad Steps",
       body: `CFA frames the process as a sequence:
 
 1. **Understand the business** — industry, strategy, financial statements, quality of earnings
@@ -1208,6 +1262,7 @@ Two-stage or three-stage models are appropriate when growth is expected to decli
     { name: "H-Model Valuation", formula: "V₀ = [D₀(1+g_L) / (r−g_L)] + [D₀·H·(g_S−g_L) / (r−g_L)]" },
     { name: "Three-Stage DDM (Stepwise)", formula: "V₀ = Σ [PV(D_t)] across phases + [D_n(1+g_L) / (r−g_L)] / (1+r)^n" },
     { name: "Three-Stage DDM (Embedded H)", formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [V_H at Year n] / (1+r)^n" },
+    { name: "Sustainable Growth Rate", formula: "g = b × ROE = (1 − Payout) × ROE" },
   ],
 };
 
