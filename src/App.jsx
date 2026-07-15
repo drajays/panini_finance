@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { TOPICS, EXAM_META } from './data/curriculum.js'
 import { LM10, LM10_ITEM_SETS, LM10_GLASSBOX } from './data/lm10_intercorporate.js'
 import { LM20, LM20_ITEM_SETS, LM20_GLASSBOX } from './data/lm20_equity_valuation_apps.js'
-import { LM21, LM21_ITEM_SETS } from './data/lm21_ddm.js'
+import { LM21, LM21_ITEM_SETS, LM21_GLASSBOX } from './data/lm21_ddm.js'
 import Level1App from './level1/Level1App.jsx'
 import Level3App from './level3/Level3App.jsx'
 import './App.css'
@@ -13,7 +13,7 @@ const LEVEL_KEY = 'panini-level'
 const MODULE_CONTENT = {
   10: { module: LM10, itemSets: LM10_ITEM_SETS, glassbox: LM10_GLASSBOX },
   20: { module: LM20, itemSets: LM20_ITEM_SETS, glassbox: LM20_GLASSBOX },
-  21: { module: LM21, itemSets: LM21_ITEM_SETS },
+  21: { module: LM21, itemSets: LM21_ITEM_SETS, glassbox: LM21_GLASSBOX },
 }
 
 /* ----------------- Helpers ----------------- */

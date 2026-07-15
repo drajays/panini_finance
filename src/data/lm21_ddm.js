@@ -551,13 +551,13 @@ It is *least* accurate when:
           "$28.00",
           "$50.00",
         ],
-        answer: 0,
-        solution: `**No-growth value of assets in place = E₁ / r = $4.00 / 0.125 = $32.00**
+        answer: 1,
+        solution: `**First principle:** V₀ = E₁/r + PVGO, so PVGO = V₀ − E₁/r.
 
-**PVGO = V₀ − E₁/r = $40.00 − $32.00 = $8.00**
+**Step 1 — No-growth value of assets in place:**
+E₁ / r = $4.00 / 0.125 = **$32.00**
 
-Wait — that's answer B, not A. Let me re-check.
-
+**Step 2 — Isolate PVGO:**
 PVGO = V₀ − E₁/r = $40.00 − $32.00 = **$8.00**
 
 **Answer: B — $8.00.**
@@ -584,6 +584,286 @@ PVGO = V₀ − E₁/r = $40.00 − $32.00 = **$8.00**
 
 **Comparison to long-run sustainable g (4%):** the market is pricing in growth of 5.4%, which is *higher* than the long-run sustainable rate. This is consistent with the market expecting near-term above-trend growth — but it also means the market is *more optimistic than the long-run average*. If you believe g should revert to 4% soon, the index is slightly overvalued.`,
         lo: "LO e, j — implied growth & index valuation",
+      },
+    ],
+  },
+
+  // ===================== ITEM SET 4 =====================
+  {
+    id: "IS-21-04",
+    title: "Item Set 4 — PVGO Decomposition (Titan Company Ltd.)",
+    vignette: `An equity analyst is evaluating Titan Company Ltd. to decompose its current market valuation. Titan operates with a highly efficient, asset-light franchisee model, allowing it to generate a Return on Capital Employed (ROCE) that significantly exceeds its hurdle rate. The analyst wants to determine how much of Titan's current stock price is anchored to its existing assets (assuming zero future growth) versus the market's expectation of its future value-creating investments.
+
+The analyst compiles the following consensus data for the upcoming fiscal year:
+
+- Current Market Price (V₀): ₹3,600
+- Expected Earnings Per Share (E₁): ₹42.00
+- Estimated Cost of Equity (r): 11.5%
+
+The analyst notes that if Titan completely stopped expanding (no new stores, no scaling of adjacent brands) and instead distributed 100% of earnings as dividends forever, growth would be zero and the Gordon Growth Model would collapse to a simple earnings perpetuity.`,
+    questions: [
+      {
+        id: 1,
+        question: `Titan's no-growth value of assets in place (E₁/r) is closest to:`,
+        options: [
+          "₹365",
+          "₹420",
+          "₹3,235",
+          "₹3,600",
+        ],
+        answer: 0,
+        solution: `**First principle:** with zero growth (100% payout), value equals next year's earnings capitalized at the cost of equity — a perpetuity of E₁.
+
+No-Growth Value = E₁ / r = 42.00 / 0.115 = **365.22 ≈ ₹365**
+
+**Answer: A — ₹365.**
+
+**Sanity check:** at 11.5% cost of equity, ₹42 of perpetual earnings supports only a few hundred rupees of value — far below the ₹3,600 market price.`,
+        lo: "LO i — PVGO / assets in place",
+      },
+      {
+        id: 2,
+        question: `Titan's Present Value of Growth Opportunities (PVGO) is closest to:`,
+        options: [
+          "₹365",
+          "₹3,235",
+          "₹3,600",
+          "₹3,965",
+        ],
+        answer: 1,
+        solution: `**Identity:** V₀ = E₁/r + PVGO  ⇒  PVGO = V₀ − E₁/r
+
+PVGO = 3,600 − 365.22 = **3,234.78 ≈ ₹3,235**
+
+**Answer: B — ₹3,235.**
+
+**Flow:** the premium above assets-in-place is the market's capitalized NPV of future high-ROCE reinvestment — not a restatement of current earnings.`,
+        lo: "LO i — calculate PVGO",
+      },
+      {
+        id: 3,
+        question: `The percentage of Titan's current market price attributed strictly to growth expectations (PVGO / V₀) is closest to:`,
+        options: [
+          "10.15%",
+          "50.00%",
+          "80.00%",
+          "89.85%",
+        ],
+        answer: 3,
+        solution: `**PVGO % of price** = PVGO / V₀ = 3,234.78 / 3,600 = **0.8985 = 89.85%**
+
+Complement check: assets-in-place share = 365.22 / 3,600 = 10.15%, and 89.85% + 10.15% = 100%.
+
+**Answer: D — 89.85%.**
+
+**First-principles takeaway:** nearly nine-tenths of Titan's price is a bet on continued value-creating capital deployment (ROCE ≫ r), not on today's earnings run-rate.`,
+        lo: "LO i — interpret PVGO share of value",
+      },
+      {
+        id: 4,
+        question: `If Titan's ROCE were to revert toward its cost of equity (11.5%) so that future investments earn exactly r, the stock price would be expected to:`,
+        options: [
+          "Rise above ₹3,600 because retained earnings increase book value",
+          "Remain at ₹3,600 because current EPS is unchanged",
+          "Collapse toward the no-growth baseline near ₹365",
+          "Fall only by the dividend yield of about 1.2%",
+        ],
+        answer: 2,
+        solution: `**First principle:** PVGO > 0 iff reinvested capital earns more than r. If ROCE → r, incremental NPV of growth projects → 0, so PVGO → 0.
+
+Then V₀ → E₁/r = 42 / 0.115 ≈ **₹365.22**
+
+**Answer: C — Collapse toward the no-growth baseline near ₹365.**
+
+**Execution risk:** with ~90% of price in PVGO, any durable deceleration in capital deployment or drop in ROCE toward 11.5% evaporates most of the market value — assets in place alone support only ~₹365.`,
+        lo: "LO i — interpret PVGO / ROE vs r",
+      },
+    ],
+  },
+];
+
+// ============================================================================
+// Glassbox Math — first-principles DDM / PVGO problems
+// ============================================================================
+export const LM21_GLASSBOX = [
+  {
+    id: 1,
+    title: "Gordon Growth Model — Basic Value",
+    topic: "GGM",
+    question:
+      "A mature firm pays D₀ = $2.00. Dividends are expected to grow at 5% forever. The required return is 12%. What is the intrinsic value per share?",
+    answer: "$30.00",
+    principle:
+      "Under constant growth, share value is next year's dividend capitalized at (r − g).",
+    steps: [
+      { text: "Write the GGM identity:", formula: "V₀ = D₁ / (r − g)" },
+      { text: "Compute D₁ = D₀(1 + g):", formula: "D₁ = 2.00 × 1.05 = 2.10" },
+      { text: "Substitute:", formula: "V₀ = 2.10 / (0.12 − 0.05) = 2.10 / 0.07 = 30.00" },
+      { text: "Sanity check — total return:", formula: "Div yield 2.10/30 = 7% + g 5% = 12% = r" },
+    ],
+  },
+  {
+    id: 2,
+    title: "Sustainable Growth Rate",
+    topic: "Sustainable Growth",
+    question:
+      "ROE = 18%, dividend payout ratio = 40%. Calculate the sustainable growth rate g.",
+    answer: "10.8%",
+    principle:
+      "Sustainable g equals the retention ratio times ROE — growth the firm can fund without changing capital structure.",
+    steps: [
+      { text: "Retention ratio b = 1 − payout:", formula: "b = 1 − 0.40 = 0.60" },
+      { text: "Sustainable growth identity:", formula: "g = ROE × b = 0.18 × 0.60 = 0.108 = 10.8%" },
+    ],
+  },
+  {
+    id: 3,
+    title: "Preferred Stock Perpetuity",
+    topic: "Preferred Stock",
+    question:
+      "A non-callable, non-convertible preferred pays a fixed $6.00 annual dividend. The required return is 9%. What is its value?",
+    answer: "$66.67",
+    principle:
+      "Fixed-rate perpetual preferred is a pure perpetuity: capitalize the dividend at r with g = 0.",
+    steps: [
+      { text: "Preferred-stock identity:", formula: "V₀ = D / r" },
+      { text: "Substitute:", formula: "V₀ = 6.00 / 0.09 = 66.666… ≈ 66.67" },
+    ],
+  },
+  {
+    id: 4,
+    title: "Implied Growth from Market Price",
+    topic: "Implied Growth",
+    question:
+      "A stock trades at $50. Expected dividend next year is $2.00. Required return is 10%. What growth rate is the market implying under the GGM?",
+    answer: "6.0%",
+    principle:
+      "Rearrange GGM: g = r − D₁/P₀. The market price embeds an implied growth assumption.",
+    steps: [
+      { text: "Write the implied-growth identity:", formula: "g = r − D₁/P₀" },
+      { text: "Dividend yield:", formula: "D₁/P₀ = 2.00 / 50 = 0.040" },
+      { text: "Implied g:", formula: "g = 0.10 − 0.040 = 0.060 = 6.0%" },
+    ],
+  },
+  {
+    id: 5,
+    title: "Justified Leading and Trailing P/E",
+    topic: "Justified P/E",
+    question:
+      "Retention ratio b = 0.40, r = 10%, g = 6%. Calculate the justified leading and trailing P/E ratios.",
+    answer: "Leading 15.0× · Trailing 15.9×",
+    principle:
+      "Justified P/Es come from the GGM: leading uses next year's earnings; trailing = leading × (1 + g).",
+    steps: [
+      { text: "Payout = 1 − b:", formula: "1 − b = 0.60" },
+      { text: "Leading P/E identity:", formula: "P₀/E₁ = (1 − b)/(r − g) = 0.60 / 0.04 = 15.0" },
+      { text: "Trailing = Leading × (1 + g):", formula: "P₀/E₀ = 15.0 × 1.06 = 15.9" },
+    ],
+  },
+  {
+    id: 6,
+    title: "H-Model Value",
+    topic: "H-Model",
+    question:
+      "D₀ = $1.50, gₛ = 15%, gₗ = 5%, H = 5 years (transition length 2H = 10 years), r = 11%. Calculate V₀ using the H-Model.",
+    answer: "$38.75",
+    principle:
+      "The H-Model assumes extraordinary growth declines linearly to long-run growth over 2H years; value is a single closed-form capitalization.",
+    steps: [
+      {
+        text: "H-Model identity:",
+        formula: "V₀ = [D₀(1+gₗ) + D₀·H·(gₛ − gₗ)] / (r − gₗ)",
+      },
+      {
+        text: "Numerator — stable dividend + transition premium:",
+        formula: "1.50(1.05) + 1.50×5×(0.15−0.05) = 1.575 + 0.75 = 2.325",
+      },
+      {
+        text: "Capitalize at (r − gₗ):",
+        formula: "V₀ = 2.325 / (0.11 − 0.05) = 2.325 / 0.06 = 38.75",
+      },
+    ],
+  },
+  {
+    id: 7,
+    title: "PVGO — GreenEnergy Mini",
+    topic: "PVGO",
+    question:
+      "GreenEnergy trades at fair value V₀ = $40. E₁ = $4.00 and r = 12.5%. Calculate PVGO and the share of price attributable to growth.",
+    answer: "PVGO $8.00 · 20% of V₀",
+    principle:
+      "Firm value = no-growth value of assets in place (E₁/r) plus PVGO from projects earning above r.",
+    steps: [
+      { text: "No-growth value:", formula: "E₁/r = 4.00 / 0.125 = 32.00" },
+      { text: "Isolate PVGO:", formula: "PVGO = V₀ − E₁/r = 40 − 32 = 8.00" },
+      { text: "Growth share of price:", formula: "PVGO/V₀ = 8/40 = 0.20 = 20%" },
+    ],
+  },
+  {
+    id: 8,
+    title: "PVGO — Titan Company Ltd. (High-ROCE Franchise)",
+    topic: "PVGO",
+    question:
+      "Titan Company Ltd. trades at V₀ = ₹3,600. Expected EPS next year E₁ = ₹42.00. Cost of equity r = 11.5%. Titan's asset-light franchisee model generates ROCE well above its hurdle rate. Calculate (1) the Present Value of Growth Opportunities (PVGO) and (2) the exact percentage of the current market price attributed strictly to growth expectations.",
+    answer: "PVGO ₹3,234.78 · 89.85% of V₀",
+    principle:
+      "V₀ = E₁/r + PVGO. E₁/r is the no-growth value of assets in place (100% payout perpetuity); any premium to that baseline is the market's capitalized belief in future value-creating reinvestment (ROCE ≫ r).",
+    steps: [
+      {
+        text: "Write the valuation identity before substituting numbers:",
+        formula: "V₀ = E₁/r + PVGO",
+      },
+      {
+        text: "Step 1 — No-growth value (assets in place). If Titan stopped expanding and paid out 100% of earnings forever, g = 0 and GGM collapses to E₁/r:",
+        formula: "No-Growth Value = E₁/r = 42.00 / 0.115 = 365.22",
+      },
+      {
+        text: "Step 2 — Isolate PVGO as the premium of market price over assets in place:",
+        formula: "PVGO = V₀ − E₁/r = 3,600 − 365.22 = 3,234.78",
+      },
+      {
+        text: "Step 3 — Growth allocation of price:",
+        formula: "PVGO / V₀ = 3,234.78 / 3,600 = 0.8985 = 89.85%",
+      },
+      {
+        text: "First-principles check — the moat dictates PVGO. Nearly 90% of Titan's price is not today's earnings run-rate but expected high-ROCE reinvestment (new stores, brand scaling). If ROCE reverted toward r = 11.5%, PVGO would evaporate and price would collapse toward ≈ ₹365.22.",
+        formula: "Sanity: assets-in-place share = 365.22/3,600 = 10.15%; 89.85% + 10.15% = 100%",
+      },
+    ],
+  },
+  {
+    id: 9,
+    title: "Total Return Decomposition",
+    topic: "Return Components",
+    question:
+      "A stock priced at $80 is expected to pay D₁ = $3.20. Constant growth g = 6%. Verify that dividend yield + capital gains yield equals the required return, and state r.",
+    answer: "r = 10%",
+    principle:
+      "Under the GGM, total expected return splits into dividend yield (D₁/P₀) and capital gains yield (g).",
+    steps: [
+      { text: "Dividend yield:", formula: "D₁/P₀ = 3.20 / 80 = 0.040 = 4%" },
+      { text: "Capital gains yield = g under GGM:", formula: "g = 6%" },
+      { text: "Required return identity:", formula: "r = D₁/P₀ + g = 4% + 6% = 10%" },
+    ],
+  },
+  {
+    id: 10,
+    title: "Two-Stage DDM — Terminal + Explicit",
+    topic: "Two-Stage DDM",
+    question:
+      "D₀ = $2.00. Dividends grow at 20% for 2 years, then at 5% forever. r = 12%. Calculate V₀.",
+    answer: "$38.88",
+    principle:
+      "Two-stage DDM: discount the high-growth dividends explicitly, then discount the Gordon terminal value at the end of the high-growth window.",
+    steps: [
+      { text: "High-growth dividends:", formula: "D₁ = 2.00×1.20 = 2.40; D₂ = 2.40×1.20 = 2.88" },
+      {
+        text: "Terminal value at t=2 (first stable dividend is D₃):",
+        formula: "D₃ = 2.88×1.05 = 3.024; V₂ = 3.024/(0.12−0.05) = 43.20",
+      },
+      {
+        text: "Present value of D₁, D₂, and V₂:",
+        formula: "V₀ = 2.40/1.12 + 2.88/1.12² + 43.20/1.12² = 2.1429 + 2.2959 + 34.4388 = 38.88",
       },
     ],
   },
