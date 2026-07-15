@@ -962,6 +962,110 @@ The H-model layout opens the exact mechanics of market pricing:
     },
 
     {
+      id: "three-stage-ddm-lifecycle-infosys",
+      title: "9K. The Three-Stage Dividend Discount Model & Lifecycle Architecture (Case Study: Infosys Ltd.)",
+      body: `Building on the foundational quantitative mechanics mastered at the first level of the charter, the Level 2 curriculum demands a more granular architectural mapping of a company's lifecycle. The **Three-Stage Dividend Discount Model** is the premier tool for this, allowing an analyst to mathematically model a "Coffee Can" compounding machine as its economic moat naturally matures.
+
+Unlike the H-Model's linear decay, the traditional Three-Stage DDM models three distinct, stepwise phases of a company's evolution:
+1. **Phase 1 (Growth):** An initial period of aggressive, high-velocity growth.
+2. **Phase 2 (Transition):** A deceleration period as the market saturates or competition enters.
+3. **Phase 3 (Maturity):** A terminal period of stable, perpetual growth tied to macroeconomic baseline rates.
+
+---
+
+### CFA Level 2 Vignette: The Three-Stage Lifecycle (Infosys Ltd.)
+**Scenario:** An equity analyst is evaluating **Infosys Ltd.** to determine its unlevered intrinsic value. The analyst determines that Infosys will experience a surge in AI-infrastructure deals over the next three years, followed by a two-year transitional cooling-off period, before finally settling into a mature, utility-like terminal state.
+• **The Fundamental Parameters:** Current Trailing Dividend ($D_0$) $= ₹40.00$ | Cost of Equity / Required Return ($r$) $= 11.5\\% (0.115)$ | **Phase 1 (High Growth):** Years 1 to 3 at $g_1 = 15\\%$ | **Phase 2 (Transition):** Years 4 to 5 at $g_2 = 10\\%$ | **Phase 3 (Terminal):** Year 6 to infinity at $g_3 = 6\\%$
+
+**Step 1: Project & Discount Phase 1 (High Growth, $g_1 = 15\\%$)**
+Compound the dividend at 15% and discount each cash flow back to Year 0 at the 11.5% cost of equity:
+• Year 1: $D_1 = 40.00 \\times 1.15 = 46.00 \\implies PV(D_1) = \\frac{46.00}{1.115^1} = \\mathbf{₹41.26}$
+• Year 2: $D_2 = 46.00 \\times 1.15 = 52.90 \\implies PV(D_2) = \\frac{52.90}{1.115^2} = \\mathbf{₹42.55}$
+• Year 3: $D_3 = 52.90 \\times 1.15 = 60.84 \\implies PV(D_3) = \\frac{60.84}{1.115^3} = \\mathbf{₹43.89}$
+
+**Step 2: Project & Discount Phase 2 (Transition, $g_2 = 10\\%$)**
+Starting from the Year 3 dividend, growth drops to 10% for the next two years:
+• Year 4: $D_4 = 60.84 \\times 1.10 = 66.92 \\implies PV(D_4) = \\frac{66.92}{1.115^4} = \\mathbf{₹43.29}$
+• Year 5: $D_5 = 66.92 \\times 1.10 = 73.61 \\implies PV(D_5) = \\frac{73.61}{1.115^5} = \\mathbf{₹42.69}$
+
+**Step 3: Calculate the Terminal Value (Phase 3 Maturity, $g_3 = 6\\%$)**
+The company reaches maturity in Year 6. First, we calculate the Year 6 dividend, then use the Gordon Growth formula to find the massive terminal price tag at exactly Year 5 ($TV_5$):
+• Year 6 Dividend: $D_6 = 73.61 \\times 1.06 = \\mathbf{₹78.03}$
+• Terminal Value at Year 5: $TV_5 = \\frac{D_6}{r - g_3} = \\frac{78.03}{0.115 - 0.06} = \\frac{78.03}{0.055} = \\mathbf{₹1,418.73}$
+• Present Value of $TV_5$: $PV(TV_5) = \\frac{1418.73}{1.115^5} = \\mathbf{₹823.26}$
+
+**Step 4: The Final Aggregation ($V_0$)**
+The intrinsic value ($V_0$) is the sum of all individual discounted cash flows from the discrete phases plus the discounted terminal value:
+$V_0 = PV(D_1) + PV(D_2) + PV(D_3) + PV(D_4) + PV(D_5) + PV(TV_5) = 41.26 + 42.55 + 43.89 + 43.29 + 42.69 + 823.26 = \\mathbf{₹1,036.94}$
+
+---
+
+### First Principles Sensitivity Analysis Matrix: The Gravitational Pull of $g_3$
+This architecture exposes the gravitational pull of the terminal phase. Even with five explicit years of compound growth modeled out precisely, **79.4%** of the asset's intrinsic value (₹823 out of ₹1,036) still resides in the perpetual maturity state ($TV_5$).
+
+Because the terminal phase carries such massive mathematical weight, let us examine exactly how a mere **1% shift in the terminal growth rate ($g_3$)** alters the final intrinsic value ($V_0$), holding all Phase 1 & 2 cash flows ($PV = ₹213.68$) and required return ($r = 11.5\\%$) constant:
+
+| Terminal Growth ($g_3$) | Year 6 Dividend ($D_6$) | Year 5 Terminal Value ($TV_5$) | Discounted $PV(TV_5)$ | Total Intrinsic Value ($V_0$) | % Change vs. Base Case |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **4.0% (-2.0% shift)** | ₹76.55 | ₹1,020.73 | ₹592.40 | **₹806.08** | **-22.3% (Severe Compression)** |
+| **5.0% (-1.0% shift)** | ₹77.29 | ₹1,189.08 | ₹690.11 | **₹903.79** | **-12.8% (Conservative Floor)** |
+| **6.0% (Base Case)** | **₹78.03** | **₹1,418.73** | **₹823.26** | **₹1,036.94** | **0.0% (Equilibrium Baseline)** |
+| **7.0% (+1.0% shift)** | ₹78.76 | ₹1,750.28 | ₹1,015.81 | **₹1,229.49** | **+18.6% (Bullish Re-rating)** |
+
+**Key Takeaway:** A 100 bps ($1\\%$) shift in terminal assumptions swings the stock price by **₹133 to ₹193 per share** ($\approx 13\\% - 19\\%$ total value impact), mathematically proving why rigorous Porter economic moat verification is non-negotiable before locking in terminal rates.`,
+      formula: "V₀ = Σ [PV(D_t)] across phases + [D_n(1+g_L) / (r−g_L)] / (1+r)^n",
+    },
+
+    {
+      id: "three-stage-ddm-embedded-hmodel",
+      title: "9L. The Three-Stage DDM with Linear Decline (The Embedded H-Model Architecture)",
+      body: `In the CFA Level 2 curriculum, the most advanced iteration of the Dividend Discount Model merges the explicit forecasting of a multi-stage model with the linear decay mechanics of the H-Model.
+
+Instead of an abrupt drop in growth during the transition phase, this architecture assumes that after a period of intense, constant high growth, the company's competitive advantage slowly erodes, causing the growth rate to decay linearly until it reaches terminal maturity.
+
+---
+
+### The Glassbox Mathematics
+This model breaks the valuation into two distinct mathematical exercises:
+1. **Phase 1 (Constant High Growth):** Calculate and discount the exact dividends for the initial high-growth years.
+2. **Phase 2 & 3 (The Embedded H-Model):** At the exact moment Phase 1 ends, the company structurally becomes an H-Model. We calculate the H-Model value at that specific future year ($V_n$), and then discount that entire block of value back to Year 0.
+
+---
+
+### CFA Level 2 Vignette: The Embedded H-Model
+**Scenario:** An analyst is modeling a high-growth technology platform. The firm will experience a constant, explosive growth phase for 3 years. After Year 3, new competitors will enter the space, causing the growth rate to decline linearly over a 4-year transition period until it settles at a permanent macroeconomic growth rate.
+• **The Parameters:** Current Dividend ($D_0$) $= ₹10.00$ | Cost of Equity ($r$) $= 12.0\\% (0.12)$ | **Phase 1 (Constant High Growth):** Years 1 to 3 at $g_S = 20\\% (0.20)$ | **Phase 2 (Linear Decline):** A 4-year transition (Years 4 through 7), where Half-Life ($H$) $= \\frac{4}{2} = 2.0$ | **Phase 3 (Terminal Maturity):** Year 8 to infinity at $g_L = 5\\% (0.05)$
+
+**Step 1: Project & Discount Phase 1 (Years 1 to 3)**
+Compound the dividend at the Phase 1 rate of 20% and discount each back to Year 0 at 12%:
+• Year 1: $D_1 = 10.00 \\times 1.20 = 12.00 \\implies PV(D_1) = \\frac{12.00}{1.12^1} = \\mathbf{₹10.71}$
+• Year 2: $D_2 = 12.00 \\times 1.20 = 14.40 \\implies PV(D_2) = \\frac{14.40}{1.12^2} = \\mathbf{₹11.48}$
+• Year 3: $D_3 = 14.40 \\times 1.20 = 17.28 \\implies PV(D_3) = \\frac{17.28}{1.12^3} = \\mathbf{₹12.30}$
+**Sum of Phase 1 PV** $= 10.71 + 11.48 + 12.30 = \\mathbf{₹34.49}$
+
+**Step 2: Calculate the Embedded H-Model Value at Year 3 ($V_3$)**
+At the end of Year 3, the firm's growth begins its linear decline. Therefore, we stand at Year 3 and apply the H-Model formula using the Year 3 dividend ($D_3 = ₹17.28$):
+$V_3 = \\frac{D_3(1 + g_L)}{r - g_L} + \\frac{D_3 \\times H \\times (g_S - g_L)}{r - g_L}$
+• **The Baseline Mature Value (at Year 3):** $\\frac{17.28 \\times (1 + 0.05)}{0.12 - 0.05} = \\frac{18.144}{0.07} = \\mathbf{₹259.20}$
+• **The Transition Growth Premium (at Year 3):** $\\frac{17.28 \\times 2.0 \\times (0.20 - 0.05)}{0.12 - 0.05} = \\frac{34.56 \\times 0.15}{0.07} = \\frac{5.184}{0.07} = \\mathbf{₹74.06}$
+**Total Value at Year 3 ($V_3$)** $= 259.20 + 74.06 = \\mathbf{₹333.26}$
+
+**Step 3: Discount the H-Model Value Back to Today**
+The ₹333.26 valuation is what the stock will mathematically be worth in Year 3. We must discount this entire sum back to Year 0:
+$PV(V_3) = \\frac{333.26}{1.12^3} = \\frac{333.26}{1.4049} = \\mathbf{₹237.21}$
+
+**Step 4: Final Aggregation ($V_0$)**
+Add the present value of the explicit dividends from Phase 1 to the present value of the firm's future lifecycle (the discounted embedded H-Model):
+$V_0 = PV(\\text{Phase 1 Dividends}) + PV(V_3) = 34.49 + 237.21 = \\mathbf{₹271.70}$
+
+---
+
+### First Principles Takeaway
+By combining the explicit forecast with the H-Model, you perfectly map corporate gravity. A company rarely falls off a cliff from 20% growth to 5% growth overnight. The **₹74.06 premium** calculated in Step 2 precisely captures the extra cash generated as the company slowly bleeds its competitive advantage over four years, providing the most architecturally sound valuation for a fading growth stock.`,
+      formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [V_H at Year n] / (1+r)^n",
+    },
+
+    {
       id: "index",
       title: "10. Using DDM to Value an Equity Index",
       body: `You can apply the DDM to a broad index (e.g., the S&P 500). The implied growth rate of the index is the weighted average of constituent implied growths.
@@ -990,6 +1094,8 @@ The H-model layout opens the exact mechanics of market pricing:
     { name: "Deterministic Two-Stage DDM", formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [D₀(1+g_S)^n(1+g_L) / ((r−g_L)(1+r)^n)]" },
     { name: "Delayed DDM (Zero-Yield)", formula: "V₀ = [ (E₀(1+g_S)^z(1+g_L) × Payout) / (r − g_L) ] / (1+r)^z" },
     { name: "Multi-Stage Terminal P/E", formula: "TV_n = E_n × [Payout × (1 + g_L)] / (r − g_L)" },
+    { name: "Three-Stage DDM (Stepwise)", formula: "V₀ = Σ [PV(D_t)] across phases + [D_n(1+g_L) / (r−g_L)] / (1+r)^n" },
+    { name: "Three-Stage DDM (Embedded H)", formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [V_H at Year n] / (1+r)^n" },
   ],
 };
 
