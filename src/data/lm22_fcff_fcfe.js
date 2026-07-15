@@ -24,6 +24,7 @@ export const LM22 = {
     "Calculate equity value using the constant-growth FCFE model: V_equity = FCFE₁ / (r_e − g), including the bank/NBFC regulatory-capital proxy.",
     "Bridge firm value to equity value: Equity = Firm Value − MV of Debt + Cash; explain why the bridge fails for banks/NBFCs.",
     "Explain Adjusted Present Value (APV): unlevered firm value plus NPV of financing effects; identify when APV is preferred to WACC.",
+    "Calculate firm value bottom-up: Equity = FCFE₁/(r_e−g), then Firm Value = Equity + Market Value of Debt (bypassing WACC).",
   ],
 
   keyTerms: [
@@ -297,8 +298,41 @@ A **1%** miss on bank firm value can become a **10–15%** miss on equity. There
       formula: "Equity = Firm Value − MV Debt + Cash   (= Firm Value − Net Debt)",
     },
     {
+      id: "bottom-up-firm-from-fcfe",
+      title: "13. Bottom-Up Firm Value from FCFE (Bypass WACC)",
+      body: `You can recover **Firm Value** without FCFF or WACC by building from equity up.
+
+**Step 1 — Equity Value (Gordon FCFE)**
+
+Equity Value = FCFE₁ / (r_e − g) = [FCFE₀ × (1 + g)] / (r_e − g)
+
+Discount at **cost of equity** only — FCFE is an equity claim.
+
+**Step 2 — Layer debt back on**
+
+Rearrange the bridge (cash = 0 for simplicity, or use Net Debt carefully):
+
+Firm Value = Equity Value + Market Value of Debt
+
+(Full form if cash is material: Firm Value = Equity − Cash + Debt, i.e. operating firm value; or Enterprise Value ≈ Equity + Debt − Cash.)
+
+**Why this works:** total firm value equals the sum of claims on assets (equity + debt). You price equity with FCFE@r_e, observe (or mark) debt at market, and add.
+
+**Glassbox vignette — physical compounder (₹ Cr)**
+
+Inputs: FCFE₀ = 500 · g = 6% · r_e = 11% · MV Debt = 3,000
+
+1. Equity = 500 × 1.06 / (0.11 − 0.06) = 530 / 0.05 = **10,600**
+2. Firm = 10,600 + 3,000 = **13,600**
+
+No blended WACC required — only r_e and observed debt pricing.
+
+**Caveats:** g < r_e; FCFE₀ must be a sustainable run-rate (not a NetB spike year); for banks/NBFCs do not use textbook FCFE in Step 1.`,
+      formula: "Equity = FCFE₀(1+g)/(r_e−g) ·  Firm = Equity + MV Debt",
+    },
+    {
       id: "apv",
-      title: "13. Adjusted Present Value (APV) — When WACC's Constant-Structure Assumption Fails",
+      title: "14. Adjusted Present Value (APV) — When WACC's Constant-Structure Assumption Fails",
       body: `**WACC's fatal flaw (for dynamic leverage):** a single WACC assumes the firm maintains a **constant** capital structure forever. If D/E spikes then falls (LBO paydown, project debt, lease rollout), discounting all FCFF at one WACC is mathematically inconsistent.
 
 **APV identity:**
@@ -362,6 +396,7 @@ Ind AS 116 / IFRS 16 capitalizes store leases as debt. Store velocity → "debt"
     { name: "APV", formula: "APV = Unlevered Firm Value + NPV(Financing Effects)" },
     { name: "APV (expanded)", formula: "APV = V_U @ k_u + PV(Int×t @ k_d) − PV(Distress)" },
     { name: "Interest tax shield (period)", formula: "Tax Shield_t = Int_t × t" },
+    { name: "Bottom-up firm value", formula: "Firm = FCFE₀(1+g)/(r_e−g) + MV Debt" },
   ],
 };
 
@@ -875,6 +910,66 @@ PV = 40/1.08 + 30/1.08² + 20/1.08³ + 10/1.08⁴
       },
     ],
   },
+  {
+    id: "IS-22-09",
+    title: "Item Set 9 — Bottom-Up Firm Value from FCFE",
+    vignette: `A physical compounder funds expansion with debt. An analyst bypasses WACC entirely:
+
+- FCFE₀ = ₹500 Cr
+- g = 6%
+- r_e (K_e) = 11%
+- Market value of debt = ₹3,000 Cr
+- Cash ≈ 0
+
+The analyst first values equity with constant-growth FCFE, then adds debt to obtain firm value.`,
+    questions: [
+      {
+        id: 1,
+        question: `Next year's FCFE₁ is closest to:`,
+        options: ["₹500 Cr", "₹530 Cr", "₹560 Cr", "₹470 Cr"],
+        answer: 1,
+        solution: `FCFE₁ = FCFE₀ × (1 + g) = 500 × 1.06 = **530**
+
+**Answer: B — ₹530 Cr.**`,
+        lo: "LO m — FCFE₁",
+      },
+      {
+        id: 2,
+        question: `Implied equity value is closest to:`,
+        options: ["₹9,636 Cr", "₹10,600 Cr", "₹4,818 Cr", "₹13,600 Cr"],
+        answer: 1,
+        solution: `Equity = FCFE₁ / (r_e − g) = 530 / (0.11 − 0.06) = 530 / 0.05 = **10,600**
+
+**Answer: B — ₹10,600 Cr.**`,
+        lo: "LO m — Gordon FCFE equity",
+      },
+      {
+        id: 3,
+        question: `Implied firm value is closest to:`,
+        options: ["₹10,600 Cr", "₹7,600 Cr", "₹13,600 Cr", "₹3,000 Cr"],
+        answer: 2,
+        solution: `Firm Value = Equity + MV Debt = 10,600 + 3,000 = **13,600**
+
+**Answer: C — ₹13,600 Cr.**`,
+        lo: "LO m — bottom-up firm value",
+      },
+      {
+        id: 4,
+        question: `The main advantage of this bottom-up path is:`,
+        options: [
+          "It never requires estimating g",
+          "It obtains firm value using only r_e and MV Debt — no blended WACC",
+          "It is the only valid method for banks",
+          "It ignores the market value of debt by design",
+        ],
+        answer: 1,
+        solution: `Equity is priced at **r_e**; debt is taken at market; sum = firm value. **No WACC** required.
+
+**Answer: B.**`,
+        lo: "LO m — bypass WACC",
+      },
+    ],
+  },
 ];
 
 export const LM22_GLASSBOX = [
@@ -1260,6 +1355,22 @@ export const LM22_GLASSBOX = [
       { text: "TCS / Abbott:", formula: "MV Debt ≈ 0 → NPV(financing) ≈ 0 → APV = V_U = WACC path" },
       { text: "Bajaj / HDFC:", formula: "Borrowings fund the loan book — not APV 'financing effects'" },
       { text: "Use APV for:", formula: "Physical compounders with temporary project/lease/acquisition debt (Divi's, Trent, Titan)" },
+    ],
+  },
+  {
+    id: 28,
+    title: "Bottom-Up Firm Value — Equity then Add Debt",
+    topic: "Bottom-Up Firm Value",
+    question:
+      "FCFE₀ = ₹500 Cr, g = 6%, r_e = 11%, MV Debt = ₹3,000 Cr. Compute equity value and firm value without using WACC.",
+    answer: "Equity ₹10,600 Cr · Firm ₹13,600 Cr",
+    principle:
+      "Price the equity claim with FCFE at r_e, then add the market value of debt claims to recover firm value.",
+    steps: [
+      { text: "Next-year FCFE:", formula: "FCFE₁ = 500 × 1.06 = 530" },
+      { text: "Equity (Gordon FCFE):", formula: "V_e = 530 / (0.11 − 0.06) = 530 / 0.05 = 10,600" },
+      { text: "Firm value bridge:", formula: "V_firm = Equity + MV Debt = 10,600 + 3,000 = 13,600" },
+      { text: "Sanity:", formula: "No WACC used; g < r_e; debt layered at market" },
     ],
   },
 ];

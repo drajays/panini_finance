@@ -4,6 +4,7 @@ import { LM10, LM10_ITEM_SETS, LM10_GLASSBOX } from './data/lm10_intercorporate.
 import { LM20, LM20_ITEM_SETS, LM20_GLASSBOX } from './data/lm20_equity_valuation_apps.js'
 import { LM21, LM21_ITEM_SETS } from './data/lm21_ddm.js'
 import { LM22, LM22_ITEM_SETS, LM22_GLASSBOX } from './data/lm22_fcff_fcfe.js'
+import { LM30, LM30_ITEM_SETS, LM30_GLASSBOX } from './data/lm30_cash_flow_app.js'
 import Level1App from './level1/Level1App.jsx'
 import Level3App from './level3/Level3App.jsx'
 import './App.css'
