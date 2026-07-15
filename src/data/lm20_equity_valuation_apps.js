@@ -1029,8 +1029,54 @@ Here is the classification of 20 diverse Indian equities, mapped directly to the
       formula: "Model Selection Mapping across 5 Nifty 500 Archetypes",
     },
     {
+      id: "h-model-valuation-framework-tcs",
+      title: "24. The H-Model Valuation Framework & Linear Decay Architecture (Case Study: Tata Consultancy Services)",
+      body: `The **H-Model** is a variant of the multi-stage dividend discount model. Instead of an abrupt drop from a high-growth rate to a mature growth rate, it models a real-world corporate reality: growth decays smoothly over time as competitive advantages slowly mature.
+
+The growth rate starts at an initial high rate ($g_S$) and declines linearly over a transition period of $y$ years to a stable, perpetual rate ($g_L$).
+
+---
+
+### The Glassbox Mathematics
+The fundamental H-Model identity breaks the asset value into two components: the baseline value if it grew at its terminal rate from day one, plus the premium value generated during the high-growth transition phase.
+$V_0 = \\frac{D_0(1 + g_L)}{r - g_L} + \\frac{D_0 \\times H \\times (g_S - g_L)}{r - g_L}$
+Where:
+• **$D_0$:** Current trailing dividend.
+• **$g_S$:** Short-term initial high growth rate.
+• **$g_L$:** Long-term terminal growth rate ($p\\%$).
+• **$r$:** Required rate of return / Cost of Equity ($z\\%$).
+• **$y$:** Total years of the transition period.
+• **$H$:** The "Half-life" of the transition period, calculated as $H = \\frac{y}{2}$.
+
+---
+
+### Real-World Application: Tata Consultancy Services (TCS)
+Let us apply this exact architecture to **TCS**, utilizing its established baseline metrics for 2026.
+• **The Fundamental Inputs:** Current Trailing Dividend ($D_0$) $= ₹75.00$ | Required Rate of Return ($r$) $= 11.17\\% (0.1117)$ | Initial Growth Rate ($g_S$) $= 14.0\\% (0.140)$ | Linear Decline Period ($y$) $= 6 \\text{ Years}$ (meaning growth decays from 14% to 5.5% over 6 years) | Half-Life ($H$) $= \\frac{6}{2} = 3.0$ | Terminal Perpetual Growth ($g_L$) $= 5.5\\% (0.055)$
+
+**Step 1: Calculate the Stable Baseline Component**
+This represents the value of the stock assuming it only grows at its terminal 5.5% rate forever:
+$\\text{Baseline Value} = \\frac{D_0(1 + g_L)}{r - g_L} = \\frac{75.00 \\times (1 + 0.055)}{0.1117 - 0.055} = \\frac{79.125}{0.0567} = \\mathbf{₹1,395.50}$
+
+**Step 2: Calculate the High-Growth Transition Premium**
+This isolates the extra cash flow generated because the company outpaces the broader economy during its linear decay phase:
+$\\text{Growth Premium} = \\frac{D_0 \\times H \\times (g_S - g_L)}{r - g_L} = \\frac{75.00 \\times 3.0 \\times (0.140 - 0.055)}{0.1117 - 0.055} = \\frac{225.00 \\times 0.085}{0.0567} = \\frac{19.125}{0.0567} = \\mathbf{₹337.30}$
+
+**Step 3: Compute the Total Intrinsic Value ($V_0$)**
+Summing the baseline assets and the growth premium:
+$V_0 = \\text{Baseline Value} + \\text{Growth Premium} = 1,395.50 + 337.30 = \\mathbf{₹1,732.80}$
+
+---
+
+### First Principles Analysis
+The H-model layout opens the exact mechanics of market pricing:
+• **Value Component Breakdown:** 80.5% of TCS's calculated intrinsic value (₹1,395.50) is anchored by its mature terminal utility state. The remaining 19.5% (₹337.30) is the premium awarded for its near-term growth pipeline.
+• **The Linear Decay Reality:** In year 1, growth is 14%. By year 3, it has decayed to 9.75%. By year 6, it reaches its permanent landing pad at 5.5%. This provides a mathematically smoother, far more conservative valuation profile than a rigid two-stage model, offering a realistic intrinsic value floor for a premium large-cap utility.`,
+      formula: "V₀ = [D₀(1+g_L) / (r−g_L)] + [D₀·H·(g_S−g_L) / (r−g_L)]",
+    },
+    {
       id: "process",
-      title: "24. The Equity Valuation Process — Broad Steps",
+      title: "25. The Equity Valuation Process — Broad Steps",
       body: `CFA frames the process as a sequence:
 
 1. **Understand the business** — industry, strategy, financial statements, quality of earnings
@@ -1057,6 +1103,7 @@ Two-stage or three-stage models are appropriate when growth is expected to decli
     { name: "Deterministic Two-Stage DDM", formula: "V₀ = Σ [D₀(1+g_S)^t / (1+r)^t] + [D₀(1+g_S)^n(1+g_L) / ((r−g_L)(1+r)^n)]" },
     { name: "Delayed DDM (Zero-Yield)", formula: "V₀ = [ (E₀(1+g_S)^z(1+g_L) × Payout) / (r − g_L) ] / (1+r)^z" },
     { name: "Multi-Stage Terminal P/E", formula: "TV_n = E_n × [Payout × (1 + g_L)] / (r − g_L)" },
+    { name: "H-Model Valuation", formula: "V₀ = [D₀(1+g_L) / (r−g_L)] + [D₀·H·(g_S−g_L) / (r−g_L)]" },
   ],
 };
 
