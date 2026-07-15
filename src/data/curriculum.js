@@ -73,7 +73,7 @@ export const TOPICS = [
     modules: [
       { id: 20, title: "Equity Valuation: Applications and Processes", status: "available" },
       { id: 21, title: "Discounted Dividend Valuation (DDM)", status: "available" },
-      { id: 22, title: "Free Cash Flow Valuation (FCFF / FCFE)", status: "coming" },
+      { id: 22, title: "Free Cash Flow Valuation (FCFF / FCFE)", status: "available" },
       { id: 23, title: "Market-Based Valuation: P/E, P/B, EV/EBITDA, PEG", status: "coming" },
       { id: 24, title: "Residual Income Valuation", status: "coming" },
       { id: 25, title: "Private Company Valuation", status: "coming" },

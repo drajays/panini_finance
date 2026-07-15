@@ -3,6 +3,7 @@ import { TOPICS, EXAM_META } from './data/curriculum.js'
 import { LM10, LM10_ITEM_SETS, LM10_GLASSBOX } from './data/lm10_intercorporate.js'
 import { LM20, LM20_ITEM_SETS, LM20_GLASSBOX } from './data/lm20_equity_valuation_apps.js'
 import { LM21, LM21_ITEM_SETS } from './data/lm21_ddm.js'
+import { LM22, LM22_ITEM_SETS, LM22_GLASSBOX } from './data/lm22_fcff_fcfe.js'
 import Level1App from './level1/Level1App.jsx'
 import Level3App from './level3/Level3App.jsx'
 import './App.css'
@@ -14,6 +15,7 @@ const MODULE_CONTENT = {
   10: { module: LM10, itemSets: LM10_ITEM_SETS, glassbox: LM10_GLASSBOX },
   20: { module: LM20, itemSets: LM20_ITEM_SETS, glassbox: LM20_GLASSBOX },
   21: { module: LM21, itemSets: LM21_ITEM_SETS },
+  22: { module: LM22, itemSets: LM22_ITEM_SETS, glassbox: LM22_GLASSBOX },
 }
 
 /* ----------------- Helpers ----------------- */
@@ -209,8 +211,8 @@ function Welcome({ onOpenLM10, onOpenLM20, onOpenLM21, onSwitchToL1, onSwitchToL
         <h2>🗺️ Roadmap</h2>
         <ul style={{ color: 'var(--text-dim)', paddingLeft: 22, lineHeight: 1.8 }}>
           <li><strong>Current:</strong> FSA — Intercorporate Investments first, then LM 11–15</li>
-          <li><strong>Also available:</strong> Equity LM 20 (Applications & Processes), LM 21 (DDM)</li>
-          <li><strong>Next waves:</strong> Remaining Equity (LM 22–25), Fixed Income (LM 26–30), then Quant / PM / Derivatives / Alts / Ethics / Corporate / Econ</li>
+          <li><strong>Also available:</strong> Equity LM 20 (Apps), LM 21 (DDM), LM 22 (FCFF/FCFE)</li>
+          <li><strong>Next waves:</strong> Remaining Equity (LM 23–25), Fixed Income (LM 26–30), then Quant / PM / Derivatives / Alts / Ethics / Corporate / Econ</li>
         </ul>
         <p style={{ color: 'var(--text-mute)', fontSize: 13, marginTop: 16 }}>
           Reference: <a href="https://300hours.com/cfa-level-2-study-order/" target="_blank" rel="noopener">300Hours 2026 curriculum order ↗</a>

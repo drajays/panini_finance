@@ -180,6 +180,8 @@ SOTP equity value ≈ Σ Segment EV − Net debt − Conglomerate discount (if a
 - Capital structure is relatively stable
 - You want equity value directly (discount at r_e)
 
+**Deep dive:** LM 22 covers cash revenue → WCInv/FCInv → FCFF/FCFE, plus why banks/NBFCs need a regulatory-capital FCFE proxy instead of textbook FCFF.
+
 **Prefer Residual Income when:**
 - Dividends / FCFE are negative or highly erratic
 - Earnings and book value are relatively reliable
