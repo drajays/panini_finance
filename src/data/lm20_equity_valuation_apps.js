@@ -1415,16 +1415,8 @@ $\\text{Payout Ratio} = 1 - 0.6667 = \\mathbf{0.3333}$ (or **33.33%**)
       formula: "ROE = (NI/EBT) × (EBT/EBIT) × (EBIT/Sales) × (Sales/Assets) × (Assets/Equity)",
     },
     {
-• **The Result:** You cannot use $FCFF$ or standard $FCFE$ to value **HDFC Bank**, **Kotak**, or **Bajaj Finance**. Instead, you must use a proxy for $FCFE$ focused on regulatory capital:
-
-$$FCFE_{\\text{Banks}} = \\text{Net Income} - \\Delta \\text{Required Regulatory Capital}$$
-
-If **Bajaj Finance** earns ₹10,000 Crore, but the RBI requires them to hold ₹8,000 Crore of that to back their new loan growth, their true available $FCFE$ is only ₹2,000 Crore.`,
-      formula: "FCFF = CFO + Int(1−t) − FCInv | FCFE = CFO − FCInv + NetB | FCFE_Banks = NI − ΔRequired Regulatory Capital",
-    },
-    {
       id: "process",
-      title: "31. The Equity Valuation Process — Broad Steps",
+      title: "30. The Equity Valuation Process — Broad Steps",
       body: `CFA frames the process as a sequence:
 
 1. **Understand the business** — industry, strategy, financial statements, quality of earnings
